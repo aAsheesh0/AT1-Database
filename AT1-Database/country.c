@@ -1,96 +1,62 @@
-#include "country.h"
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "country.h"
 
-// Function to create a new node for the linked list of countries visited
-CountryListNode* create_country_node(char* country_name, int num_visits) {
-    CountryListNode* newNode = (CountryListNode*)malloc(sizeof(CountryListNode));
-    if (newNode) {
-        newNode->country_name = strdup(country_name);
-        newNode->num_visits = num_visits;
-        newNode->next = NULL;
+struct CountryNode* init_country_node(char country[]) {
+    struct CountryNode* new_node = (struct CountryNode*)malloc(sizeof(struct CountryNode));
+    if (new_node == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
     }
-    return newNode;
+    strcpy(new_node->country, country);
+    new_node->next = NULL;
+    return new_node;
 }
 
-// Function to append a node to the end of the linked list
-void append_country_node(CountryListNode** head, char* country_name, int num_visits) {
-    CountryListNode* newNode = create_country_node(country_name, num_visits);
-    if (newNode == NULL) {
-        printf("Memory allocation failed. Unable to append node.\n");
-        return;
-    }
+void insert_country_node(struct CountryNode** head, char country[]) {
+    struct CountryNode* new_node = init_country_node(country);
     if (*head == NULL) {
-        *head = newNode;
+        *head = new_node;
     }
     else {
-        CountryListNode* current = *head;
-        while (current->next != NULL) {
-            current = current->next;
+        struct CountryNode* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
         }
-        current->next = newNode;
+        temp->next = new_node;
     }
 }
 
-// Function to search for a node in the linked list by country name
-CountryListNode* search_country_node(CountryListNode* head, char* country_name) {
-    CountryListNode* current = head;
-    while (current != NULL) {
-        if (strcmp(current->country_name, country_name) == 0) {
-            return current;
-        }
-        current = current->next;
-    }
-    return NULL; // Country not found
-}
-
-// Function to delete a node from the linked list by country name
-void delete_country_node(CountryListNode** head, char* country_name) {
-    CountryListNode* current = *head;
-    CountryListNode* prev = NULL;
-
-    // Find the node with the given country name
-    while (current != NULL && strcmp(current->country_name, country_name) != 0) {
-        prev = current;
-        current = current->next;
-    }
-
-    // If country name not found
-    if (current == NULL) {
-        printf("Country not found in the list. Unable to delete node.\n");
+void sort_countries(struct CountryNode** head) {
+    if (*head == NULL || (*head)->next == NULL) {
         return;
     }
 
-    // Update pointers to remove the node from the list
-    if (prev == NULL) {
-        *head = current->next;
-    }
-    else {
-        prev->next = current->next;
-    }
+    struct CountryNode* current = *head;
+    struct CountryNode* index = NULL;
+    char temp[100];
 
-    // Free memory allocated for the node
-    free(current->country_name);
-    free(current);
-}
-
-// Function to print the linked list
-void print_country_list(CountryListNode* head) {
-    CountryListNode* current = head;
     while (current != NULL) {
-        printf("Country: %s, Number of Visits: %d\n", current->country_name, current->num_visits);
+        index = current->next;
+        while (index != NULL) {
+            if (strcmp(current->country, index->country) > 0) {
+                strcpy(temp, current->country);
+                strcpy(current->country, index->country);
+                strcpy(index->country, temp);
+            }
+            index = index->next;
+        }
         current = current->next;
     }
 }
 
-// Function to deallocate memory for the linked list
-void destroy_country_list(CountryListNode** head) {
-    CountryListNode* current = *head;
-    while (current != NULL) {
-        CountryListNode* temp = current;
-        current = current->next;
-        free(temp->country_name);
+void free_country_list(struct CountryNode* head) {
+    struct CountryNode* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
         free(temp);
     }
-    *head = NULL; // Set head to NULL after destruction
 }

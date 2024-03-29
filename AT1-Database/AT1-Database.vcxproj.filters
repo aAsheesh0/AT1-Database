@@ -31,7 +31,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\travelers_data.csv">
+    <None Include="travelers_data.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -1,45 +1,26 @@
 #ifndef PASSPORT_H
 #define PASSPORT_H
-
 #include "country.h"
 
-// Structure for PassportNode
-typedef struct PassportNode {
-    char* PassportNumber;
-    char* FirstName;
-    char* LastName;
-    char* Nationality;
-    char* DateOfBirth;
-    char* PurposeOfVisit;
-    char* VisaType;
-    CountryListNode* countries_visited; // Pointer to the head of the linked list of countries visited
+// Define the structure for Passport Node
+struct PassportNode {
+    char passport_number[20];
+    char first_name[50];
+    char last_name[50];
+    char nationality[100];
+    char date_of_birth[20];
+    char purpose_of_visit[100];
+    char visa_type[50];
+    struct CountryNode* countries_visited; // Pointer to the head of the linked list of countries
     struct PassportNode* left;
     struct PassportNode* right;
-} PassportNode;
+};
 
-// Function prototypes for BST operations
-PassportNode* create_passport_node(char* PassportNumber, char* FirstName, char* LastName, char* Nationality, char* DateOfBirth, char* PurposeOfVisit, char* VisaType);
-PassportNode* insert_passport_node(PassportNode* root, PassportNode* node);
-PassportNode* search_passport_node(PassportNode* root, char* PassportNumber);
-void inorder_traversal(PassportNode* root);
-void destroy_passport_tree(PassportNode* root);
+// Function declarations
+struct PassportNode* init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]);
+void insert_passport_node(struct PassportNode** root, struct PassportNode* newNode);
+struct PassportNode* search_passport_node(struct PassportNode* root, char passport_number[]);
+void inorderPassportTraversal(struct PassportNode* root);
+void freePassportTree(struct PassportNode* root);
 
-// Getter functions
-char* get_passport_number(PassportNode* node);
-char* get_first_name(PassportNode* node);
-char* get_last_name(PassportNode* node);
-char* get_nationality(PassportNode* node);
-char* get_date_of_birth(PassportNode* node);
-char* get_purpose_of_visit(PassportNode* node);
-char* get_visa_type(PassportNode* node);
-
-// Setter functions
-void set_passport_number(PassportNode* node, char* PassportNumber);
-void set_first_name(PassportNode* node, char* FirstName);
-void set_last_name(PassportNode* node, char* LastName);
-void set_nationality(PassportNode* node, char* Nationality);
-void set_date_of_birth(PassportNode* node, char* DateOfBirth);
-void set_purpose_of_visit(PassportNode* node, char* PurposeOfVisit);
-void set_visa_type(PassportNode* node, char* VisaType);
-
-#endif /* PASSPORT_H */
+#endif

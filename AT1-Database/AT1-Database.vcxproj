@@ -135,7 +135,7 @@
     <ClCompile Include="country.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\travelers_data.csv" />
+    <None Include="travelers_data.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
