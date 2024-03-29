@@ -55,7 +55,7 @@ void inorder_passport_traversal(struct PassportNode* root) {
         printf("Countries Visited:\n");
         struct CountryNode* countryPtr = root->countries_visited;
         while (countryPtr != NULL) {
-            printf("%s\n", countryPtr->country);
+            printf("%s (Number of visits: %d)\n", countryPtr->country, countryPtr->numVisits);
             countryPtr = countryPtr->next;
         }
         printf("\n");

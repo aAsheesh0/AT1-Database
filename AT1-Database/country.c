@@ -4,28 +4,34 @@
 #include <string.h>
 #include "country.h"
 
-struct CountryNode* init_country_node(char country[]) {
-    struct CountryNode* new_node = (struct CountryNode*)malloc(sizeof(struct CountryNode));
-    if (new_node == NULL) {
+struct CountryNode* init_country_node(char country[], int numVisits) {
+    struct CountryNode* newNode = (struct CountryNode*)malloc(sizeof(struct CountryNode));
+    if (newNode == NULL) {
         printf("Memory allocation failed\n");
         exit(1);
     }
-    strcpy(new_node->country, country);
-    new_node->next = NULL;
-    return new_node;
+    strcpy(newNode->country, country);
+    newNode->numVisits = numVisits;
+    newNode->next = NULL;
+    return newNode;
 }
 
-void insert_country_node(struct CountryNode** head, char country[]) {
-    struct CountryNode* new_node = init_country_node(country);
+void insert_country_node(struct CountryNode** head, char country[], int numVisits) {
+    struct CountryNode* newNode = init_country_node(country, numVisits);
     if (*head == NULL) {
-        *head = new_node;
+        *head = newNode;
     }
     else {
         struct CountryNode* temp = *head;
         while (temp->next != NULL) {
+            if (strcmp(temp->country, country) == 0) {
+                temp->numVisits += numVisits; // Increment numVisits if country already exists
+                free(newNode); // Free newNode as country already exists
+                return;
+            }
             temp = temp->next;
         }
-        temp->next = new_node;
+        temp->next = newNode;
     }
 }
 
