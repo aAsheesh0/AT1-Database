@@ -15,6 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="passport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="country.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="passport.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="country.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="..\..\travelers_data.csv">
       <Filter>Resource Files</Filter>
     </None>

@@ -127,6 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="passport.h" />
+    <ClInclude Include="country.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="passport.c" />
+    <ClCompile Include="country.c" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="..\..\travelers_data.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
