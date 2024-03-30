@@ -18,7 +18,8 @@ struct PassportNode* init_passport(char passport_number[], char first_name[], ch
     strcpy(new_node->purpose_of_visit, purpose_of_visit);
     strcpy(new_node->visa_type, visa_type);
     new_node->countries_visited = NULL;
-    new_node->left = new_node->right = NULL;
+    new_node->left = NULL;
+    new_node->right = NULL; 
     return new_node;
 }
 

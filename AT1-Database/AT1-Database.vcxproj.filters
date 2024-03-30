@@ -21,12 +21,18 @@
     <ClInclude Include="country.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="read.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="passport.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="country.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="assignment.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

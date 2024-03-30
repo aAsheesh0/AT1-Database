@@ -129,8 +129,10 @@
   <ItemGroup>
     <ClInclude Include="passport.h" />
     <ClInclude Include="country.h" />
+    <ClInclude Include="read.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="assignment.c" />
     <ClCompile Include="passport.c" />
     <ClCompile Include="country.c" />
   </ItemGroup>
