@@ -26,6 +26,12 @@ void read_travelers_data(const char* filename, struct PassportNode** root) {
     char country[50];
     int num_visits;
 
+    // Skip the first line (header) of the CSV file
+    if (fgets(line, sizeof(line), file) == NULL) {
+        fclose(file);
+        return; // If there's nothing to read, just return
+    }
+
     while (fgets(line, sizeof(line), file) && rows_read < 30) {
         // Parse the CSV line
         char* token;
