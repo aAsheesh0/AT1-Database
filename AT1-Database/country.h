@@ -11,7 +11,6 @@ struct CountryNode {
 // Function declarations
 struct CountryNode* init_country_node(char country[], int numVisits);
 void insert_country_node(struct CountryNode** head, char country[], int numVisits);
-void sort_countries(struct CountryNode** head);
 void free_country_list(struct CountryNode* head);
 
 #endif

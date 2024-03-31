@@ -16,45 +16,31 @@ struct CountryNode* init_country_node(char country[], int numVisits) {
     return newNode;
 }
 
-void insert_country_node(struct CountryNode** head, char country[], int numVisits) {
-    struct CountryNode* newNode = init_country_node(country, numVisits);
-    if (*head == NULL) {
-        *head = newNode;
+void insert_country_node(struct CountryNode** head, char country[], int num_visits) {
+    // Create a new country node
+    struct CountryNode* new_node = (struct CountryNode*)malloc(sizeof(struct CountryNode));
+    if (new_node == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    strcpy(new_node->country, country);
+    new_node->numVisits = num_visits;
+    new_node->next = NULL;
+
+    // If the list is empty or the new node should be inserted at the beginning
+    if (*head == NULL || strcmp(country, (*head)->country) < 0 || (strcmp(country, (*head)->country) == 0 && num_visits > (*head)->numVisits)) {
+        new_node->next = *head;
+        *head = new_node;
     }
     else {
-        struct CountryNode* temp = *head;
-        while (temp->next != NULL) {
-            if (strcmp(temp->country, country) == 0) {
-                temp->numVisits += numVisits; // Increment numVisits if country already exists
-                free(newNode); // Free newNode as country already exists
-                return;
-            }
-            temp = temp->next;
+        struct CountryNode* current = *head;
+        // Traverse the list to find the appropriate position to insert the new node
+        while (current->next != NULL && (strcmp(country, current->next->country) > 0 || (strcmp(country, current->next->country) == 0 && num_visits <= current->next->numVisits))) {
+            current = current->next;
         }
-        temp->next = newNode;
-    }
-}
-
-void sort_countries(struct CountryNode** head) {
-    if (*head == NULL || (*head)->next == NULL) {
-        return;
-    }
-
-    struct CountryNode* current = *head;
-    struct CountryNode* index = NULL;
-    char temp[100];
-
-    while (current != NULL) {
-        index = current->next;
-        while (index != NULL) {
-            if (strcmp(current->country, index->country) > 0) {
-                strcpy(temp, current->country);
-                strcpy(current->country, index->country);
-                strcpy(index->country, temp);
-            }
-            index = index->next;
-        }
-        current = current->next;
+        // Insert the new node
+        new_node->next = current->next;
+        current->next = new_node;
     }
 }
 
