@@ -22,5 +22,6 @@ void insert_passport_node(struct PassportNode** root, struct PassportNode* newNo
 struct PassportNode* search_passport_node(struct PassportNode* root, char passport_number[]);
 void inorderPassportTraversal(struct PassportNode* root);
 void freePassportTree(struct PassportNode* root);
+void test_bst_operations();
 
 #endif

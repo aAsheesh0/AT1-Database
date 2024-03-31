@@ -35,6 +35,9 @@
     <ClCompile Include="assignment.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testing.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="travelers_data.csv">

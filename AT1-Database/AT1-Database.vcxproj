@@ -135,6 +135,7 @@
     <ClCompile Include="assignment.c" />
     <ClCompile Include="passport.c" />
     <ClCompile Include="country.c" />
+    <ClCompile Include="testing.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="travelers_data.csv" />

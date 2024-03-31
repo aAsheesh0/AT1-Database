@@ -12,5 +12,6 @@ struct CountryNode {
 struct CountryNode* init_country_node(char country[], int numVisits);
 void insert_country_node(struct CountryNode** head, char country[], int numVisits);
 void free_country_list(struct CountryNode* head);
+void test_linked_list_operations();
 
 #endif
