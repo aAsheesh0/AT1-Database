@@ -4,6 +4,7 @@
 #include <string.h>
 #include "read.h"
 #include "passport.h"
+#include "information.h"
 
 void read_travelers_data(const char* filename, struct PassportNode** root) {
     FILE* file;
@@ -32,7 +33,7 @@ void read_travelers_data(const char* filename, struct PassportNode** root) {
         return; // If there's nothing to read, just return
     }
 
-    while (fgets(line, sizeof(line), file) && rows_read < 30) {
+    while (fgets(line, sizeof(line), file)) {
         // Parse the CSV line
         char* token;
         char* saveptr;
@@ -104,12 +105,14 @@ int main() {
     printf("\nTesting Linked List operations:\n");
     test_linked_list_operations();*/
 
-    // Read data from travelers_data.csv
-    read_travelers_data("travelers_data.csv", &root);
-
     // Perform test by traversing the BST and printing passport details
     /*printf("Passport details:\n");
     inorder_passport_traversal(root);*/
+
+
+    // Read data from travelers_data.csv
+    read_travelers_data("travelers_data.csv", &root);
+    search_passport_by_number(root);
 
     // Free memory allocated for BST
     free_passport_tree(root);
