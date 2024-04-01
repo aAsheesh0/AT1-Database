@@ -97,18 +97,18 @@ int main() {
     struct PassportNode* root = NULL;
 
     // Perform BST operations testing
-    printf("Testing Binary Search Tree (BST) operations:\n");
+    /*printf("Testing Binary Search Tree (BST) operations:\n");
     test_bst_operations();
 
     // Perform linked list operations testing
     printf("\nTesting Linked List operations:\n");
-    test_linked_list_operations();
+    test_linked_list_operations();*/
 
     // Read data from travelers_data.csv
-    /*read_travelers_data("travelers_data.csv", &root);
+    read_travelers_data("travelers_data.csv", &root);
 
     // Perform test by traversing the BST and printing passport details
-    printf("Passport details:\n");
+    /*printf("Passport details:\n");
     inorder_passport_traversal(root);*/
 
     // Free memory allocated for BST

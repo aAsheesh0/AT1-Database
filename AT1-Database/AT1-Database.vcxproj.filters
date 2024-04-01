@@ -24,6 +24,9 @@
     <ClInclude Include="read.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="information.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="passport.c">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="testing.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="information.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

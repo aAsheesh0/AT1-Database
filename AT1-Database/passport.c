@@ -52,14 +52,12 @@ struct PassportNode* search_passport_node(struct PassportNode* root, char passpo
 void inorder_passport_traversal(struct PassportNode* root) {
     if (root != NULL) {
         inorder_passport_traversal(root->left);
-        printf("Passport Number: %s, Name: %s %s, Nationality: %s\n", root->passport_number, root->first_name, root->last_name, root->nationality);
-        printf("Countries Visited:\n");
+        // Omit printf statements
         struct CountryNode* countryPtr = root->countries_visited;
         while (countryPtr != NULL) {
-            printf("%s (Number of visits: %d)\n", countryPtr->country, countryPtr->numVisits);
+            // Omit printf statements
             countryPtr = countryPtr->next;
         }
-        printf("\n");
         inorder_passport_traversal(root->right);
     }
 }

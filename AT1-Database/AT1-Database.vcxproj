@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="information.h" />
     <ClInclude Include="passport.h" />
     <ClInclude Include="country.h" />
     <ClInclude Include="read.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assignment.c" />
+    <ClCompile Include="information.c" />
     <ClCompile Include="passport.c" />
     <ClCompile Include="country.c" />
     <ClCompile Include="testing.c" />
