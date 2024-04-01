@@ -4,5 +4,6 @@
 #include "passport.h"
 
 void search_passport_by_number(struct PassportNode* root);
+void find_passports_by_nationality(struct PassportNode* root);
 
 #endif

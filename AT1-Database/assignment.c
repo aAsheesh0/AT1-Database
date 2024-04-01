@@ -112,7 +112,8 @@ int main() {
 
     // Read data from travelers_data.csv
     read_travelers_data("travelers_data.csv", &root);
-    search_passport_by_number(root);
+    //search_passport_by_number(root);
+    find_passports_by_nationality(root);
 
     // Free memory allocated for BST
     free_passport_tree(root);

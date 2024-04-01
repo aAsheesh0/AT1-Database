@@ -18,15 +18,6 @@ void search_passport_by_number(struct PassportNode* root) {
             printf("Last Name: %s\n", root->last_name);
             printf("Nationality: %s\n", root->nationality);
             printf("Date of Birth: %s\n", root->date_of_birth);
-            printf("Purpose of Visit: %s\n", root->purpose_of_visit);
-            printf("Visa Type: %s\n", root->visa_type);
-
-            printf("\nCountries Visited:\n");
-            struct CountryNode* countryPtr = root->countries_visited;
-            while (countryPtr != NULL) {
-                printf("%s\t| %d\n", countryPtr->country, countryPtr->numVisits);
-                countryPtr = countryPtr->next;
-            }
 
             return;
         }
@@ -39,4 +30,41 @@ void search_passport_by_number(struct PassportNode* root) {
     }
 
     printf("Passport not found.\n");
+}
+
+void find_passports_by_nationality(struct PassportNode* root) {
+    char nationality[100];
+    printf("Enter nationality to search for: ");
+    scanf("%s", nationality);
+
+    if (root == NULL) {
+        printf("No passport records found.\n");
+        return;
+    }
+
+    int found = 0;
+
+    struct PassportNode* stack[100];
+    int top = -1;
+    struct PassportNode* current = root;
+
+    while (current != NULL || top != -1) {
+        while (current != NULL) {
+            stack[++top] = current;
+            current = current->left;
+        }
+
+        current = stack[top--];
+
+        if (strcmp(current->nationality, nationality) == 0) {
+            printf("Passport Number: %s\n", current->passport_number);
+            found = 1;
+        }
+
+        current = current->right;
+    }
+
+    if (!found) {
+        printf("No passport records found for nationality: %s\n", nationality);
+    }
 }
