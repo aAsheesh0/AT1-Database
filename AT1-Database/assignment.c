@@ -109,10 +109,10 @@ int main() {
     /*printf("Passport details:\n");
     inorder_passport_traversal(root);*/
 
-
     // Read data from travelers_data.csv
     read_travelers_data("travelers_data.csv", &root);
     
+    display_passport_history(root);
     add_passport_record(&root);
     search_passport_by_number(root);
     find_passports_by_nationality(root);

@@ -124,3 +124,27 @@ void add_passport_record(struct PassportNode** root) {
 
     insert_passport_node(root, new_passport);
 }
+
+void display_passport_history(struct Passport* root) {
+    char passport_number[20];
+    printf("Enter passport number: ");
+    scanf("%s", passport_number);
+
+    struct PassportNode* passport = search_passport_node(root, passport_number);
+
+    if (passport == NULL) {
+        printf("Passport with number %s not found.\n", passport_number);
+        return;
+    }
+
+    printf("Passportholder visits on %s visa:\n", passport->visa_type);
+    printf("\n| Country      | Number of Visits |\n");
+    printf("|--------------|------------------|\n");
+
+    struct CountryNode* country_ptr = passport->countries_visited;
+    while (country_ptr != NULL) {
+        printf("| %-12s | %-16d |\n", country_ptr->country, country_ptr->numVisits);
+        country_ptr = country_ptr->next;
+    }
+    printf("\n");
+}
