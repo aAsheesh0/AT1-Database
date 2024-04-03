@@ -96,6 +96,7 @@ void read_travelers_data(const char* filename, struct PassportNode** root) {
 
 int main() {
     struct PassportNode* root = NULL;
+    int choice = 0;
 
     // Perform BST operations testing
     /*printf("Testing Binary Search Tree (BST) operations:\n");
@@ -105,17 +106,42 @@ int main() {
     printf("\nTesting Linked List operations:\n");
     test_linked_list_operations();*/
 
-    // Perform test by traversing the BST and printing passport details
-    /*printf("Passport details:\n");
-    inorder_passport_traversal(root);*/
-
     // Read data from travelers_data.csv
     read_travelers_data("travelers_data.csv", &root);
-    
-    display_passport_history(root);
-    add_passport_record(&root);
-    search_passport_by_number(root);
-    find_passports_by_nationality(root);
+
+    while (choice != 5){
+        printf("\nPassport Database Operations\n");
+        printf("1. Search for a Passport Details by Passport Number\n");
+        printf("2. Display Passport History\n");
+        printf("3. Find Passport Records by Nationality\n");
+        printf("4. Add a Passport Record\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        while (getchar() != '\n');
+        
+        switch (choice) {
+        case 1:
+            search_passport_by_number(root);
+            break;
+        case 2:
+            display_passport_history(root);
+            break;
+        case 3:
+            find_passports_by_nationality(root);
+            break;
+        case 4:
+            add_passport_record(&root);
+            break;
+        case 5:
+            printf("Exiting program.\n");
+            break;
+        default:
+            printf("Invalid choice. Please enter a number from 1 to 5.\n");
+            break;
+        }
+    }
 
     // Free memory allocated for BST
     free_passport_tree(root);

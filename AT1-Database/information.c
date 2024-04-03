@@ -6,7 +6,7 @@
 
 void search_passport_by_number(struct PassportNode* root) {
     char passportNumber[20];
-    printf("Enter passport number to search for: ");
+    printf("\nEnter passport number to search for: ");
     scanf("%s", passportNumber);
 
     while (root != NULL) {
@@ -34,8 +34,14 @@ void search_passport_by_number(struct PassportNode* root) {
 
 void find_passports_by_nationality(struct PassportNode* root) {
     char nationality[100];
-    printf("Enter nationality to search for: ");
-    scanf("%s", nationality);
+    printf("\nEnter nationality to search for: ");
+    fgets(nationality, sizeof(nationality), stdin);
+
+    size_t len = strlen(nationality);
+
+    if (nationality[len - 1] == '\n') {
+        nationality[len - 1] = '\0';
+    }
 
     if (root == NULL) {
         printf("No passport records found.\n");
@@ -81,7 +87,7 @@ void add_passport_record(struct PassportNode** root) {
     int num_visits;
 
     // Prompt the user to enter passport details
-    printf("Enter passport number: ");
+    printf("\nEnter new passport number: ");
     scanf("%s", passport_number);
 
     printf("Enter first name: ");
@@ -96,7 +102,7 @@ void add_passport_record(struct PassportNode** root) {
     printf("Enter date of birth (YYYY-MM-DD): ");
     scanf("%s", date_of_birth);
 
-    printf("Enter purpose of visit: ");
+    printf("Enter usual purpose of visit: ");
     scanf("%s", purpose_of_visit);
 
     printf("Enter visa type: ");
@@ -127,7 +133,7 @@ void add_passport_record(struct PassportNode** root) {
 
 void display_passport_history(struct Passport* root) {
     char passport_number[20];
-    printf("Enter passport number: ");
+    printf("\nEnter passport number to see the history: ");
     scanf("%s", passport_number);
 
     struct PassportNode* passport = search_passport_node(root, passport_number);
