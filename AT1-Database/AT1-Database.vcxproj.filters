@@ -44,6 +44,9 @@
     <ClCompile Include="information.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="read.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="travelers_data.csv">

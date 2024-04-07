@@ -137,6 +137,7 @@
     <ClCompile Include="information.c" />
     <ClCompile Include="passport.c" />
     <ClCompile Include="country.c" />
+    <ClCompile Include="read.c" />
     <ClCompile Include="testing.c" />
   </ItemGroup>
   <ItemGroup>
