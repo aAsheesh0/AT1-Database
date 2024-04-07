@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "passport.h"
+#include "passport_BST.h"
 
 struct PassportNode* init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
     struct PassportNode* new_node = (struct PassportNode*)malloc(sizeof(struct PassportNode));

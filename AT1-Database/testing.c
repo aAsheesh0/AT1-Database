@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "passport.h"
+#include "passport_BST.h"
 #include "country.h"
 
 void test_bst_operations() {

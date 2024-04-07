@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "read.h"
-#include "passport.h"
+#include "passport_BST.h"
 
 void read_travelers_data(const char* filename, struct PassportNode** root) {
     FILE* file;

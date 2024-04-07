@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="passport.h">
+    <ClInclude Include="passport_BST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="country.h">
@@ -27,9 +27,12 @@
     <ClInclude Include="information.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="passport_AVL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="passport.c">
+    <ClCompile Include="passport_bst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="country.c">

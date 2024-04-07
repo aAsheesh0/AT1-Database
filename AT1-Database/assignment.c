@@ -59,7 +59,7 @@ int main() {
             add_passport_record(&root);
             break;
         case 5:
-            printf("Exiting program.\n");
+            printf("Exiting program...\n");
             break;
         default:
             printf("Invalid choice. Please enter a number from 1 to 5.\n");
