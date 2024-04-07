@@ -117,9 +117,12 @@ int main() {
         printf("4. Add a Passport Record\n");
         printf("5. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        while (getchar() != '\n');
+        
+        if (scanf("%d", &choice) != 1) {
+            printf("Invalid choice. Please enter a number from 1 to 5.\n");
+            while (getchar() != '\n');
+            continue; // For restarting
+        }
         
         switch (choice) {
         case 1:

@@ -35,13 +35,7 @@ void search_passport_by_number(struct PassportNode* root) {
 void find_passports_by_nationality(struct PassportNode* root) {
     char nationality[100];
     printf("\nEnter nationality to search for: ");
-    fgets(nationality, sizeof(nationality), stdin);
-
-    size_t len = strlen(nationality);
-
-    if (nationality[len - 1] == '\n') {
-        nationality[len - 1] = '\0';
-    }
+    scanf(" %[^\n]", nationality);
 
     if (root == NULL) {
         printf("No passport records found.\n");
