@@ -50,6 +50,9 @@
     <ClCompile Include="read.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="passport_AVL.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="travelers_data.csv">
