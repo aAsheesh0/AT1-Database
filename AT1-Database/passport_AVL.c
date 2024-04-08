@@ -25,16 +25,14 @@ struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char la
 }
 
 int height(struct AVLNode* node) {
-    if (node == NULL) {
+    if (node == NULL)
         return 0;
-    }
     return node->height;
 }
 
 int get_balance(struct AVLNode* node) {
-    if (node == NULL) {
+    if (node == NULL)
         return 0;
-    }
     return height(node->left) - height(node->right);
 }
 
@@ -102,4 +100,32 @@ struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
     }
 
     return node;
+}
+
+struct AVLNode* search_AVL_node(struct AVLNode* node, char passport_number[]) {
+    if (node == NULL || strcmp(node->passport_number, passport_number) == 0) {
+        return node;
+    }
+
+    if (strcmp(node->passport_number, passport_number) < 0) {
+        return search_AVL_node(node->right, passport_number);
+    }
+
+    return search_AVL_node(node->left, passport_number);
+}
+
+void inorder_AVL_traversal(struct AVLNode* node) {
+    if (node != NULL) {
+        inorder_AVL_traversal(node->left);
+        printf("Passport Number: %s\n", node->passport_number);
+        inorder_AVL_traversal(node->right);
+    }
+}
+
+void free_AVL_tree(struct AVLNode* node) {
+    if (node != NULL) {
+        free_AVL_tree(node->left);
+        free_AVL_tree(node->right);
+        free(node);
+    }
 }
