@@ -11,13 +11,17 @@ int main() {
     int choice = 0;
     double cpu_time_used;
 
-    // Perform BST operations testing
-    /*printf("Testing Binary Search Tree (BST) operations:\n");
+    // Performs BST operations testing
+    printf("Testing Binary Search Tree (BST) operations:\n");
     test_bst_operations();
 
-    // Perform linked list operations testing
+    // Performs linked list operations testing
     printf("\nTesting Linked List operations:\n");
-    test_linked_list_operations();*/
+    test_linked_list_operations();
+
+    // Performs AVL operations testing
+    printf("\nTesting AVL operations:\n");
+    test_AVL_operations();
 
     // Start measuring time
     clock_t start = clock();
@@ -30,7 +34,7 @@ int main() {
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
 
-    while (choice != 5){
+    /*while (choice != 5) {
         printf("\nPassport Database Operations\n");
         printf("1. Search for a Passport Details by Passport Number\n");
         printf("2. Display Passport History\n");
@@ -65,7 +69,7 @@ int main() {
             printf("Invalid choice. Please enter a number from 1 to 5.\n");
             break;
         }
-    }
+    }*/
 
     // Free memory allocated for BST
     free_passport_tree(root);
