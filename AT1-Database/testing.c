@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "passport_BST.h"
 #include "passport_AVL.h"
-#include "country.h"
+#include "country_LIST.h"
+#include "country_ARRAY.h"
 
 void test_bst_operations() {
     struct PassportNode* root = NULL;
@@ -46,7 +47,7 @@ void test_linked_list_operations() {
     printf("Sorted countries with number of visits:\n");
     struct CountryNode* current = head;
     while (current != NULL) {
-        printf("%s - Visits: %d\n", current->country, current->numVisits);
+        printf("%s - Visits: %d\n", current->country, current->num_visits);
         current = current->next;
     }
 
@@ -58,24 +59,41 @@ void test_AVL_operations() {
     struct AVLNode* root = NULL;
 
     struct AVLNode* passport1 = init_AVL_node("D10101", "John", "Doe", "USA", "1990-01-01", "Tourism", "Tourist");
-    insert_country_node(&(passport1->countries_visited), "Canada", 3);
+    insert_country_array(&(passport1->countries_visited), "Canada", 3);
     root = insert_AVL_node(root, passport1);
 
     struct AVLNode* passport2 = init_AVL_node("A422456", "Kayla", "Smith", "UK", "1985-05-15", "Business", "Business");
-    insert_country_node(&(passport2->countries_visited), "France", 2);
+    insert_country_array(&(passport2->countries_visited), "France", 2);
     root = insert_AVL_node(root, passport2);
 
     struct AVLNode* passport3 = init_AVL_node("C431789", "Bob", "Johnson", "Canada", "1978-09-20", "Study", "Student");
-    insert_country_node(&(passport3->countries_visited), "Germany", 1);
+    insert_country_array(&(passport3->countries_visited), "Germany", 1);
     root = insert_AVL_node(root, passport3);
 
     struct AVLNode* passport4 = init_AVL_node("X38223", "John", "Doe", "USA", "1990-01-01", "Tourism", "Tourist");
-    insert_country_node(&(passport4->countries_visited), "Australia", 3);
-    insert_country_node(&(passport4->countries_visited), "Argentina", 2); // Inserting another country with smaller alphabet
+    insert_country_array(&(passport4->countries_visited), "India", 3);
+    insert_country_array(&(passport4->countries_visited), "Australia", 2); // Inserting another country with smaller alphabet
+    insert_country_array(&(passport4->countries_visited), "Argentina", 4); // Inserting another country with smaller alphabet
     root = insert_AVL_node(root, passport4);
 
     printf("Inorder traversal of AVL tree:\n");
     inorder_AVL_traversal(root);
 
     free_AVL_tree(root);
+}
+
+void test_array_operations() {
+    struct CountryArray country_array;
+    init_country_array(&country_array);
+
+    // Insert some countries into the array
+    insert_country_array(&country_array, "France", 2);
+    insert_country_array(&country_array, "Germany", 5);
+    insert_country_array(&country_array, "Canada", 3);
+
+    // Print the countries with number of visits
+    printf("Countries with number of visits (Array):\n");
+    for (int i = 0; i < country_array.count; i++) {
+        printf("%s - Visits: %d\n", country_array.countries[i], country_array.numVisits[i]);
+    }
 }

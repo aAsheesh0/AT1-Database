@@ -1,6 +1,6 @@
 #ifndef PASSPORT_H
 #define PASSPORT_H
-#include "country.h"
+#include "country_LIST.h"
 
 // Define the structure for Passport Node
 struct PassportNode {
@@ -20,8 +20,8 @@ struct PassportNode {
 struct PassportNode* init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]);
 void insert_passport_node(struct PassportNode** root, struct PassportNode* newNode);
 struct PassportNode* search_passport_node(struct PassportNode* root, char passport_number[]);
-void inorderPassportTraversal(struct PassportNode* root);
-void freePassportTree(struct PassportNode* root);
+void inorder_passport_traversal(struct PassportNode* root);
+void free_passport_tree(struct PassportNode* root);
 void test_bst_operations();
 
 #endif

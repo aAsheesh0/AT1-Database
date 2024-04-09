@@ -56,7 +56,7 @@ void inorder_passport_traversal(struct PassportNode* root) {
         while (countryPtr != NULL) {
             countryPtr = countryPtr->next;
         }
-        printf("Passport Number: %s\n", root->passport_number);
+        printf("Passport Number: %s, First Name: %s.\n", root->passport_number, root->first_name);
         inorder_passport_traversal(root->right);
     }
 }

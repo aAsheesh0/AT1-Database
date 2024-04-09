@@ -1,7 +1,6 @@
 #ifndef PASSPORT_AVL_H
 #define PASSPORT_AVL_H
-
-#include "country.h"
+#include "country_ARRAY.h"
 
 struct AVLNode {
     char passport_number[20];
@@ -11,7 +10,7 @@ struct AVLNode {
     char date_of_birth[20];
     char purpose_of_visit[100];
     char visa_type[50];
-    struct CountryNode* countries_visited; // Pointer to the head of the linked list of countries
+    struct CountryArray countries_visited; // Array of countries visited
     struct AVLNode* left;
     struct AVLNode* right;
     int height; 

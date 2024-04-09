@@ -18,7 +18,7 @@
     <ClInclude Include="passport_BST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="country.h">
+    <ClInclude Include="country_LIST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="read.h">
@@ -32,10 +32,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="passport_bst.c">
+    <ClCompile Include="passport_BST.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="country.c">
+    <ClCompile Include="country_LIST.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="assignment.c">
@@ -51,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="passport_AVL.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="country_ARRAY.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="country_ARRAY.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

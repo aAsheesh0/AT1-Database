@@ -143,7 +143,7 @@ void display_passport_history(struct Passport* root) {
 
     struct CountryNode* country_ptr = passport->countries_visited;
     while (country_ptr != NULL) {
-        printf("| %-12s | %-16d |\n", country_ptr->country, country_ptr->numVisits);
+        printf("| %-12s | %-16d |\n", country_ptr->country, country_ptr->num_visits);
         country_ptr = country_ptr->next;
     }
     printf("\n");
