@@ -29,5 +29,6 @@ struct AVLNode* search_AVL_node(struct AVLNode* node, char passport_number[]);
 void inorder_AVL_traversal(struct AVLNode* node);
 void free_AVL_tree(struct AVLNode* node);
 void test_AVL_operations();
+void test_AVL_rotations();
 
 #endif

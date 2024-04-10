@@ -13,11 +13,6 @@ void init_country_array(struct CountryArray* country_array) {
 }
 
 void insert_country_array(struct CountryArray* country_array, char country[], int num_visits) {
-    // Initialize the array if it hasn't been initialized
-    if (country_array->count == 0) {
-        init_country_array(&country_array);
-    }
-
     // Check if the country already exists in the array
     for (int i = 0; i < country_array->count; i++) {
         if (strcmp(country_array->countries[i], country) == 0) {

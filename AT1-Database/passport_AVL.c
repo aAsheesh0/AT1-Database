@@ -83,19 +83,31 @@ struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
     int balance = get_balance(node);
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) < 0) {
+        printf("Before right rotation:\n");
+        inorder_AVL_traversal(node);
+        printf("\n");
         return rotate_right(node);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) > 0) {
+        printf("Before left rotation:\n");
+        inorder_AVL_traversal(node);
+        printf("\n");
         return rotate_left(node);
     }
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) > 0) {
+        printf("Before left-right rotation:\n");
+        inorder_AVL_traversal(node);
+        printf("\n");
         node->left = rotate_left(node->left);
         return rotate_right(node);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) < 0) {
+        printf("Before right-left rotation:\n");
+        inorder_AVL_traversal(node);
+        printf("\n");
         node->right = rotate_right(node->right);
         return rotate_left(node);
     }
