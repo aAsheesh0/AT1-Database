@@ -12,12 +12,12 @@ int main() {
     double cpu_time_used;
 
     // Performs BST operations testing
-    printf("Testing Binary Search Tree (BST) operations:\n");
+    /*printf("Testing Binary Search Tree (BST) operations:\n");
     test_bst_operations();
 
     // Performs linked list operations testing
     printf("\nTesting Linked List operations:\n");
-    test_linked_list_operations();
+    test_linked_list_operations();*/
 
     // Performs AVL operations testing
     printf("\nTesting AVL operations:\n");
@@ -34,7 +34,7 @@ int main() {
     //read_travelers_data_pair1("travelers_data.csv", &root);
 
     // Read data from travelers_data.csv, using AVL and Linked List
-    //read_travelers_data_pair2("travelers_data.csv", &root);
+    read_travelers_data_pair2("travelers_data.csv", &root);
 
     // Stop measuring time
     clock_t end = clock();

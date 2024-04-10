@@ -17,7 +17,8 @@ struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char la
     strcpy(newNode->date_of_birth, date_of_birth);
     strcpy(newNode->purpose_of_visit, purpose_of_visit);
     strcpy(newNode->visa_type, visa_type);
-    init_country_array(&(newNode->countries_visited));
+    //init_country_array(&(newNode->countries_visited)); // initialising array of countries
+    newNode->countries_visited = NULL;
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->height = 1;
@@ -118,10 +119,10 @@ void inorder_AVL_traversal(struct AVLNode* node) {
     if (node != NULL) {
         inorder_AVL_traversal(node->left);
         printf("Passport Number: %s\n", node->passport_number);
-        printf("Countries Visited:\n");
+        /*printf("Countries Visited:\n");
         for (int i = 0; i < node->countries_visited.count; i++) {
             printf("%s - Visits: %d\n", node->countries_visited.countries[i], node->countries_visited.numVisits[i]);
-        }
+        }*/
         inorder_AVL_traversal(node->right);
     }
 }

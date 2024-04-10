@@ -59,21 +59,27 @@ void test_AVL_operations() {
     struct AVLNode* root = NULL;
 
     struct AVLNode* passport1 = init_AVL_node("D10101", "John", "Doe", "USA", "1990-01-01", "Tourism", "Tourist");
-    insert_country_array(&(passport1->countries_visited), "Canada", 3);
+    //insert_country_array(&(passport1->countries_visited), "Canada", 3);
+    insert_country_node(&(passport1->countries_visited), "Canada", 3);
     root = insert_AVL_node(root, passport1);
 
     struct AVLNode* passport2 = init_AVL_node("A422456", "Kayla", "Smith", "UK", "1985-05-15", "Business", "Business");
-    insert_country_array(&(passport2->countries_visited), "France", 2);
+    //insert_country_array(&(passport2->countries_visited), "France", 2);
+    insert_country_node(&(passport2->countries_visited), "France", 2);
     root = insert_AVL_node(root, passport2);
 
     struct AVLNode* passport3 = init_AVL_node("C431789", "Bob", "Johnson", "Canada", "1978-09-20", "Study", "Student");
-    insert_country_array(&(passport3->countries_visited), "Germany", 1);
+    //insert_country_array(&(passport3->countries_visited), "Germany", 1);
+    insert_country_node(&(passport3->countries_visited), "Germany", 1);
     root = insert_AVL_node(root, passport3);
 
     struct AVLNode* passport4 = init_AVL_node("X38223", "John", "Doe", "USA", "1990-01-01", "Tourism", "Tourist");
-    insert_country_array(&(passport4->countries_visited), "India", 3);
-    insert_country_array(&(passport4->countries_visited), "Australia", 2); // Inserting another country with smaller alphabet
-    insert_country_array(&(passport4->countries_visited), "Argentina", 4); // Inserting another country with smaller alphabet
+    //insert_country_array(&(passport4->countries_visited), "India", 3);
+    //insert_country_array(&(passport4->countries_visited), "Australia", 2); // Inserting another country with smaller alphabet
+    //insert_country_array(&(passport4->countries_visited), "Argentina", 4); // Inserting another country with smaller alphabet
+    insert_country_node(&(passport4->countries_visited), "India", 3);
+    insert_country_node(&(passport4->countries_visited), "Australia", 2); // Inserting another country with smaller alphabet
+    insert_country_node(&(passport4->countries_visited), "Argentina", 4); // Inserting another country with smaller alphabet
     root = insert_AVL_node(root, passport4);
 
     printf("Inorder traversal of AVL tree:\n");

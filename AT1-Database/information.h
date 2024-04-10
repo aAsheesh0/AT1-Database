@@ -2,6 +2,7 @@
 #define INFORMATION_H
 
 #include "passport_BST.h"
+#include "passport_AVL.h"
 
 void search_passport_by_number(struct PassportNode* root);
 void find_passports_by_nationality(struct PassportNode* root);
