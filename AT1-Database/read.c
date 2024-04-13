@@ -98,8 +98,9 @@ void read_travelers_data_pair1(const char* filename, struct PassportNode** root)
 }
 
 void read_travelers_data_pair2(const char* filename, struct AVLNode** root) {
-    //printf("AVL & Array!\n");
-    printf("\nAVL & Linked List!\n");
+    printf("AVL & Array!\n");
+    //printf("\nAVL & Linked List!\n");
+    
     FILE* file;
     fopen_s(&file, filename, "r");
     if (file == NULL) {

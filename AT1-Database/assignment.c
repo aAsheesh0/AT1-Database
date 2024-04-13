@@ -21,31 +21,31 @@ int main() {
 
     // Performs AVL rotations testing
     printf("\nTesting AVL rotations:\n");
-    test_AVL_rotations();*/
+    test_AVL_rotations();
 
     // Performs AVL operations testing
     printf("\nTesting AVL operations:\n");
     test_AVL_operations();
-     
+
     // Performs Array operations testing
     printf("\nTesting Array operations:\n");
-    test_array_operations();
+    test_array_operations();*/
 
     // Start measuring time
     clock_t start = clock();
 
     // Read data from travelers_data.csv, using BST and Linked List
-    //read_travelers_data_pair1("travelers_data.csv", &root);
+    read_travelers_data_pair1("travelers_data.csv", &root);
 
     // Read data from travelers_data.csv, using AVL and Linked List
-    read_travelers_data_pair2("travelers_data.csv", &root);
+    //read_travelers_data_pair2("travelers_data.csv", &root);
 
     // Stop measuring time
     clock_t end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
 
-    /*while (choice != 5) {
+    while (choice != 5) {
         printf("\nPassport Database Operations\n");
         printf("1. Search for a Passport Details by Passport Number\n");
         printf("2. Display Passport History\n");
@@ -62,16 +62,19 @@ int main() {
         
         switch (choice) {
         case 1:
-            search_passport_by_number(root);
+            //search_passport_by_number_pair1(root);
+            search_passport_by_number_pair1(root);
             break;
         case 2:
-            display_passport_history(root);
+            //display_passport_history_pair1(root);
+            display_passport_history_pair1(root);
             break;
         case 3:
             find_passports_by_nationality(root);
             break;
         case 4:
-            add_passport_record(&root);
+            //add_passport_record_pair1(&root);
+            add_passport_record_pair1(&root);
             break;
         case 5:
             printf("Exiting program...\n");
@@ -80,11 +83,11 @@ int main() {
             printf("Invalid choice. Please enter a number from 1 to 5.\n");
             break;
         }
-    }*/
+    }
 
     // Free memory allocated for BST
-    //free_passport_tree(root);
-    free_AVL_tree(root);
+    free_passport_tree(root);
+    //free_AVL_tree(root);
 
     return 0;
 }
