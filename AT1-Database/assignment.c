@@ -38,7 +38,7 @@ int main() {
     //read_travelers_data_pair1("travelers_data.csv", &root);
 
     // Read data from travelers_data.csv, using AVL and Linked List
-    //read_travelers_data_pair2("travelers_data.csv", &root);
+    read_travelers_data_pair2("travelers_data.csv", &root);
 
     // Stop measuring time
     clock_t end = clock();
