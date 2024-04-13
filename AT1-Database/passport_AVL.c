@@ -17,8 +17,8 @@ struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char la
     strcpy(newNode->date_of_birth, date_of_birth);
     strcpy(newNode->purpose_of_visit, purpose_of_visit);
     strcpy(newNode->visa_type, visa_type);
-    //init_country_array(&(newNode->countries_visited)); // initialising array of countries
-    newNode->countries_visited = NULL;
+    init_country_array(&(newNode->countries_visited)); // initialising array of countries
+    //newNode->countries_visited = NULL;
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->height = 1;
@@ -83,31 +83,31 @@ struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
     int balance = get_balance(node);
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) < 0) {
-        printf("Before right rotation:\n");
+        /*printf("Before right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
+        printf("\n");*/
         return rotate_right(node);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) > 0) {
-        printf("Before left rotation:\n");
+        /*printf("Before left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
+        printf("\n");*/
         return rotate_left(node);
     }
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) > 0) {
-        printf("Before left-right rotation:\n");
+        /*printf("Before left-right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
+        printf("\n");*/
         node->left = rotate_left(node->left);
         return rotate_right(node);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) < 0) {
-        printf("Before right-left rotation:\n");
+        /*printf("Before right-left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
+        printf("\n");*/
         node->right = rotate_right(node->right);
         return rotate_left(node);
     }
@@ -131,10 +131,10 @@ void inorder_AVL_traversal(struct AVLNode* node) {
     if (node != NULL) {
         inorder_AVL_traversal(node->left);
         printf("Passport Number: %s\n", node->passport_number);
-        /*printf("Countries Visited:\n");
+        printf("Countries Visited:\n");
         for (int i = 0; i < node->countries_visited.count; i++) {
             printf("%s - Visits: %d\n", node->countries_visited.countries[i], node->countries_visited.numVisits[i]);
-        }*/
+        }
         inorder_AVL_traversal(node->right);
     }
 }

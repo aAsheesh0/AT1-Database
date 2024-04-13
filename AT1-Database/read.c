@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "read.h"
+#include "passport_BST.h"
+#include "passport_AVL.h"
+#include "country_ARRAY.h"
+#include "country_LIST.h"
 
 void read_travelers_data_pair1(const char* filename, struct PassportNode** root) {
     printf("\nBST & Linked List!\n");
@@ -170,13 +174,13 @@ void read_travelers_data_pair2(const char* filename, struct AVLNode** root) {
             // Insert the passport node into the AVL
             *root = insert_AVL_node(*root, new_passport);
             // Insert the visited country into the array
-            //insert_country_array(&(new_passport->countries_visited), country, num_visits);
-            insert_country_node(&(new_passport->countries_visited), country, num_visits);
+            insert_country_array(&(new_passport->countries_visited), country, num_visits);
+            //insert_country_node(&(new_passport->countries_visited), country, num_visits);
         }
         else {
             // Passport already exists, just insert the visited country into the existing passport's array
-            //insert_country_array(&(existing_passport->countries_visited), country, num_visits);
-            insert_country_node(&(existing_passport->countries_visited), country, num_visits);
+            insert_country_array(&(existing_passport->countries_visited), country, num_visits);
+            //insert_country_node(&(existing_passport->countries_visited), country, num_visits);
         }
 
         rows_read++;

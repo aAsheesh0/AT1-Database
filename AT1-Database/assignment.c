@@ -4,7 +4,6 @@
 #include <string.h>
 #include <time.h>
 #include "read.h"
-#include "country_ARRAY.h"
 #include "information.h"
 
 int main() {
@@ -18,19 +17,19 @@ int main() {
 
     // Performs linked list operations testing
     printf("\nTesting Linked List operations:\n");
-    test_linked_list_operations();*/
+    test_linked_list_operations();
+
+    // Performs AVL rotations testing
+    printf("\nTesting AVL rotations:\n");
+    test_AVL_rotations();*/
 
     // Performs AVL operations testing
     printf("\nTesting AVL operations:\n");
     test_AVL_operations();
-
-    // Performs AVL rotations testing
-    printf("\nTesting AVL rotations:\n");
-    test_AVL_rotations();
-    
-    // Perform Array operations testing
-    /*printf("\nTesting Array operations:\n");
-    test_array_operations();*/
+     
+    // Performs Array operations testing
+    printf("\nTesting Array operations:\n");
+    test_array_operations();
 
     // Start measuring time
     clock_t start = clock();
@@ -46,7 +45,7 @@ int main() {
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
 
-/*    while (choice != 5) {
+    /*while (choice != 5) {
         printf("\nPassport Database Operations\n");
         printf("1. Search for a Passport Details by Passport Number\n");
         printf("2. Display Passport History\n");
@@ -84,7 +83,8 @@ int main() {
     }*/
 
     // Free memory allocated for BST
-    free_passport_tree(root);
+    //free_passport_tree(root);
+    free_AVL_tree(root);
 
     return 0;
 }

@@ -2,6 +2,8 @@
 #define READ_H
 #include "passport_BST.h"
 #include "passport_AVL.h"
+#include "country_ARRAY.h"
+#include "country_LIST.h"
 
 // Function declaration
 void read_travelers_data_pair1(const char* filename, struct PassportNode** root);

@@ -10,8 +10,8 @@ struct CountryArray {
 };
 
 // Function declarations
-void init_country_array(struct CountryArray* countryArray);
-void insert_country_array(struct CountryArray* countryArray, char country[], int num_visits);
+void init_country_array(struct CountryArray* country_array);
+void insert_country_array(struct CountryArray* country_array, char country[], int num_visits);
 void test_array_operations();
 
 #endif
