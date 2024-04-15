@@ -59,7 +59,7 @@ void search_passport_by_number_pair2(struct AVLNode* root) {
     printf("Passport not found.\n");
 }
 
-void find_passports_by_nationality(struct PassportNode* root) {
+void find_passports_by_nationality_pair1(struct PassportNode* root) {
     char nationality[100];
     printf("\nEnter nationality to search for: ");
     scanf(" %[^\n]", nationality);
@@ -74,6 +74,43 @@ void find_passports_by_nationality(struct PassportNode* root) {
     struct PassportNode* stack[100];
     int top = -1;
     struct PassportNode* current = root;
+
+    while (current != NULL || top != -1) {
+        while (current != NULL) {
+            stack[++top] = current;
+            current = current->left;
+        }
+
+        current = stack[top--];
+
+        if (strcmp(current->nationality, nationality) == 0) {
+            printf("Passport Number: %s\n", current->passport_number);
+            found = 1;
+        }
+
+        current = current->right;
+    }
+
+    if (!found) {
+        printf("No passport records found for nationality: %s\n", nationality);
+    }
+}
+
+void find_passports_by_nationality_pair2(struct AVLNode* root) {
+    char nationality[100];
+    printf("\nEnter nationality to search for: ");
+    scanf(" %[^\n]", nationality);
+
+    if (root == NULL) {
+        printf("No passport records found.\n");
+        return;
+    }
+
+    int found = 0;
+
+    struct AVLNode* stack[100];
+    int top = -1;
+    struct AVLNode* current = root;
 
     while (current != NULL || top != -1) {
         while (current != NULL) {
@@ -217,7 +254,7 @@ void add_passport_record_pair2(struct AVLNode** root) {
     *root = insert_AVL_node(*root, new_passport);
     end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("Time taken to add passport record to AVL: %f seconds.\n", cpu_time_used);
+    printf("Time taken to add passport record to AVL: %.30f seconds.\n", cpu_time_used);
 }
 
 void display_passport_history_pair1(struct PassportNode* root) {
@@ -225,18 +262,18 @@ void display_passport_history_pair1(struct PassportNode* root) {
     printf("\nEnter passport number to see the history: ");
     scanf("%s", passport_number);
 
-    clock_t start, end;
-    double total_time = 0.0;
-    int num_repetitions = 1000; // Adjust the number of repetitions as needed
+    //clock_t start, end;
+    //double total_time = 0.0;
+    //int num_repetitions = 100;
 
-    for (int i = 0; i < num_repetitions; i++) {
-        start = clock(); // Start measuring time
+    //for (int i = 0; i < num_repetitions; i++) {
+        //start = clock(); // Start measuring time
 
         struct PassportNode* passport = search_passport_node(root, passport_number);
 
-        end = clock(); // Stop measuring time
-        double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
-        total_time += time_taken;
+        //end = clock(); // Stop measuring time
+        //double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        //total_time += time_taken;
         if (passport == NULL) {
             printf("Passport with number %s not found.\n", passport_number);
             return;
@@ -252,10 +289,10 @@ void display_passport_history_pair1(struct PassportNode* root) {
             country_ptr = country_ptr->next;
         }
         printf("\n");
-    }
+    //}
 
-    double average_time = total_time / num_repetitions;
-    printf("Average time taken for BST search: %f seconds\n", average_time);
+    //double average_time = total_time / num_repetitions;
+    //printf("Average time taken for BST search: %f seconds\n", average_time);
 }
 
 void display_passport_history_pair2(struct AVLNode* root) {
@@ -263,18 +300,18 @@ void display_passport_history_pair2(struct AVLNode* root) {
     printf("\nEnter passport number to see the history: ");
     scanf("%s", passport_number);
 
-    clock_t start, end;
-    double total_time = 0.0;
-    int num_repetitions = 1000; // Adjust the number of repetitions as needed
+    //clock_t start, end;
+    //double total_time = 0.0;
+    //int num_repetitions = 100;
 
-    for (int i = 0; i < num_repetitions; i++) {
-        start = clock(); // Start measuring time
+    //for (int i = 0; i < num_repetitions; i++) {
+        //start = clock(); // Start measuring time
 
         struct AVLNode* passport = search_AVL_node(root, passport_number);
 
-        end = clock(); // Stop measuring time
-        double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
-        total_time += time_taken;
+        //end = clock(); // Stop measuring time
+        //double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        //total_time += time_taken;
 
         if (passport == NULL) {
             printf("Passport with number %s not found.\n", passport_number);
@@ -289,8 +326,8 @@ void display_passport_history_pair2(struct AVLNode* root) {
             printf("| %-12s | %-16d |\n", passport->countries_visited.countries[i], passport->countries_visited.numVisits[i]);
         }
         printf("\n");
-    }
+    //}
 
-    double average_time = total_time / num_repetitions;
-    printf("Average time taken for AVL search: %f seconds\n", average_time);
+    //double average_time = total_time / num_repetitions;
+    //printf("Average time taken for AVL search: %f seconds\n", average_time);
 }

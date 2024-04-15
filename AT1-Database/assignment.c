@@ -35,10 +35,10 @@ int main() {
     clock_t start = clock();
 
     // Read data from travelers_data.csv, using BST and Linked List
-    read_travelers_data_pair1("travelers_data.csv", &root);
+    //read_travelers_data_pair1("travelers_data.csv", &root);
 
     // Read data from travelers_data.csv, using AVL and Linked List
-    //read_travelers_data_pair2("travelers_data.csv", &root);
+    read_travelers_data_pair2("travelers_data.csv", &root);
 
     // Stop measuring time
     clock_t end = clock();
@@ -63,18 +63,19 @@ int main() {
         switch (choice) {
         case 1:
             //search_passport_by_number_pair1(root);
-            search_passport_by_number_pair1(root);
+            search_passport_by_number_pair2(root);
             break;
         case 2:
             //display_passport_history_pair1(root);
-            display_passport_history_pair1(root);
+            display_passport_history_pair2(root);
             break;
         case 3:
-            find_passports_by_nationality(root);
+            //find_passports_by_nationality_pair1(root);
+            find_passports_by_nationality_pair2(root);
             break;
         case 4:
             //add_passport_record_pair1(&root);
-            add_passport_record_pair1(&root);
+            add_passport_record_pair2(&root);
             break;
         case 5:
             printf("Exiting program...\n");
@@ -86,8 +87,8 @@ int main() {
     }
 
     // Free memory allocated for BST
-    free_passport_tree(root);
-    //free_AVL_tree(root);
+    //free_passport_tree(root);
+    free_AVL_tree(root);
 
     return 0;
 }
