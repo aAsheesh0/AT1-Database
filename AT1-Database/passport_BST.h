@@ -23,5 +23,6 @@ struct PassportNode* search_passport_node(struct PassportNode* root, char passpo
 void inorder_passport_traversal(struct PassportNode* root);
 void free_passport_tree(struct PassportNode* root);
 void test_bst_operations();
+int tree_height_BST(struct PassportNode* root);
 
 #endif

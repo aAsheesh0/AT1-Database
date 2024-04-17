@@ -7,9 +7,11 @@
 #include "information.h"
 
 int main() {
-    struct PassportNode* root = NULL;
+    //struct PassportNode* root = NULL;
+    struct AVLNode* root = NULL;
     int choice = 0;
     double cpu_time_used;
+    int Tree_height;
 
     // Performs BST operations testing
     /*printf("Testing Binary Search Tree (BST) operations:\n");
@@ -44,6 +46,11 @@ int main() {
     clock_t end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
+    
+    //Tree_height = tree_height_BST(root);
+    Tree_height = tree_height_AVL(root);
+    printf("Height of the tree is: %d\n", Tree_height);
+    printf("Number of rotations during structuring: %d\n", root->rotation_count);
 
     while (choice != 5) {
         printf("\nPassport Database Operations\n");
@@ -88,6 +95,7 @@ int main() {
 
     // Free memory allocated for BST
     //free_passport_tree(root);
+    // Free memory allocated for AVL
     free_AVL_tree(root);
 
     return 0;

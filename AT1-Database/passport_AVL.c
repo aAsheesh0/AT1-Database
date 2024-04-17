@@ -22,6 +22,7 @@ struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char la
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->height = 1;
+    newNode->rotation_count = 0;
     return newNode;
 }
 
@@ -37,6 +38,16 @@ int get_balance(struct AVLNode* node) {
     return height(node->left) - height(node->right);
 }
 
+int tree_height_AVL(struct AVLNode* node) {
+    if (node == NULL)
+        return 0;
+    int left_height = tree_height_AVL(node->left);
+    int right_height = tree_height_AVL(node->right);
+    //printf("Node: %s, Left height: %d, Right height: %d\n", node->passport_number, left_height, right_height);
+
+    return 1 + ((left_height > right_height) ? left_height : right_height);
+}
+
 struct AVLNode* rotate_right(struct AVLNode* y) {
     struct AVLNode* x = y->left;
     struct AVLNode* T2 = x->right;
@@ -47,6 +58,7 @@ struct AVLNode* rotate_right(struct AVLNode* y) {
     y->height = 1 + ((height(y->left) > height(y->right)) ? height(y->left) : height(y->right));
     x->height = 1 + ((height(x->left) > height(x->right)) ? height(x->left) : height(x->right));
 
+    x->rotation_count++;
     return x;
 }
 
@@ -60,6 +72,7 @@ struct AVLNode* rotate_left(struct AVLNode* x) {
     x->height = 1 + ((height(x->left) > height(x->right)) ? height(x->left) : height(x->right));
     y->height = 1 + ((height(y->left) > height(y->right)) ? height(y->left) : height(y->right));
 
+    y->rotation_count++;
     return y;
 }
 
@@ -94,7 +107,7 @@ struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) > 0) {
         /*printf("\nBefore left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n"); */
+        printf("\n");*/
         return rotate_left(node);
     }
 

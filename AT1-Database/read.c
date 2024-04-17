@@ -127,7 +127,7 @@ void read_travelers_data_pair2(const char* filename, struct AVLNode** root) {
         return; // If there's nothing to read, just return
     }
 
-    while (fgets(line, sizeof(line), file) && rows_read < 17) {
+    while (fgets(line, sizeof(line), file)) {
         // Parse the CSV line
         char* token;
         char* saveptr;

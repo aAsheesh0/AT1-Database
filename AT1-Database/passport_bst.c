@@ -69,3 +69,13 @@ void free_passport_tree(struct PassportNode* root) {
         free(root);
     }
 }
+
+int tree_height_BST(struct PassportNode* root) {
+    if (root == NULL)
+        return 0;
+    int left_height = tree_height_BST(root->left);
+    int right_height = tree_height_BST(root->right);
+    //printf("Node: %s, Left height: %d, Right height: %d\n", root->passport_number, left_height, right_height);
+    
+    return 1 + ((left_height > right_height) ? left_height : right_height);
+}

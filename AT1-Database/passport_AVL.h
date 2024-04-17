@@ -15,12 +15,14 @@ struct AVLNode {
     struct CountryArray countries_visited; // Array of countries visited
     struct AVLNode* left;
     struct AVLNode* right;
-    int height; 
+    int height;
+    int rotation_count;
 };
 
 //prototypes
 struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]);
 int height(struct AVLNode* node);
+int tree_height_AVL(struct AVLNode* node);
 int get_balance(struct AVLNode* node);
 struct AVLNode* rotate_right(struct AVLNode* y);
 struct AVLNode* rotate_left(struct AVLNode* x);
