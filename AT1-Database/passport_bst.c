@@ -4,8 +4,8 @@
 #include <string.h>
 #include "passport_BST.h"
 
-struct PassportNode* init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
-    struct PassportNode* new_node = (struct PassportNode*)malloc(sizeof(struct PassportNode));
+PassportNodePtr init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
+    PassportNodePtr new_node = (PassportNodePtr)malloc(sizeof(struct PassportNode));
     if (new_node == NULL) {
         printf("Memory allocation failed\n");
         exit(1);
@@ -23,21 +23,39 @@ struct PassportNode* init_passport(char passport_number[], char first_name[], ch
     return new_node;
 }
 
-void insert_passport_node(struct PassportNode** root, struct PassportNode* new_node) {
-    if (*root == NULL) {
-        *root = new_node;
+void insert_passport_node(PassportBST* tree, PassportNodePtr new_node) {
+    if (tree == NULL) {
+        printf("BST is not Initialised.\n");
+        return;
+    }
+
+    if (tree->root == NULL) {
+        tree->root = new_node;
     }
     else {
-        if (strcmp(new_node->passport_number, (*root)->passport_number) < 0) {
-            insert_passport_node(&((*root)->left), new_node);
+        PassportNodePtr current = tree->root;
+        PassportNodePtr parent = NULL;
+
+        while (current != NULL) {
+            parent = current;
+            if (strcmp(new_node->passport_number, current->passport_number) < 0) {
+                current = current->left;
+            }
+            else {
+                current = current->right;
+            }
+        }
+
+        if (strcmp(new_node->passport_number, parent->passport_number) < 0) {
+            parent->left = new_node;
         }
         else {
-            insert_passport_node(&((*root)->right), new_node);
+            parent->right = new_node;
         }
     }
 }
 
-struct PassportNode* search_passport_node(struct PassportNode* root, char passport_number[]) {
+PassportNodePtr search_passport_node(PassportNodePtr root, char passport_number[]) {
     if (root == NULL || strcmp(root->passport_number, passport_number) == 0) {
         return root;
     }
@@ -49,19 +67,20 @@ struct PassportNode* search_passport_node(struct PassportNode* root, char passpo
     }
 }
 
-void inorder_passport_traversal(struct PassportNode* root) {
+void inorder_passport_traversal(PassportNodePtr root) {
     if (root != NULL) {
         inorder_passport_traversal(root->left);
+        printf("Passport Number: %s, First Name: %s.\n", root->passport_number, root->first_name);
         struct CountryNode* countryPtr = root->countries_visited;
         while (countryPtr != NULL) {
+            printf("Visited Country: %s, Number of Visits: %d\n", countryPtr->country, countryPtr->num_visits);
             countryPtr = countryPtr->next;
         }
-        printf("Passport Number: %s, First Name: %s.\n", root->passport_number, root->first_name);
         inorder_passport_traversal(root->right);
     }
 }
 
-void free_passport_tree(struct PassportNode* root) {
+void free_passport_tree(PassportNodePtr root) {
     if (root != NULL) {
         free_passport_tree(root->left);
         free_passport_tree(root->right);
@@ -70,7 +89,7 @@ void free_passport_tree(struct PassportNode* root) {
     }
 }
 
-int tree_height_BST(struct PassportNode* root) {
+int tree_height_BST(PassportNodePtr root) {
     if (root == NULL)
         return 0;
     int left_height = tree_height_BST(root->left);

@@ -8,7 +8,7 @@
 #include "country_ARRAY.h"
 #include "country_LIST.h"
 
-void read_travelers_data_pair1(const char* filename, struct PassportNode** root) {
+void read_travelers_data_pair1(const char* filename, PassportBST* tree) {
     printf("\nBST & Linked List!\n");
     FILE* file;
     fopen_s(&file, filename, "r");
@@ -36,7 +36,7 @@ void read_travelers_data_pair1(const char* filename, struct PassportNode** root)
         return; // If there's nothing to read, just return
     }
 
-    while (fgets(line, sizeof(line), file)) {
+    while (fgets(line, sizeof(line), file) && rows_read < 20) {
         // Parse the CSV line
         char* token;
         char* saveptr;
@@ -77,12 +77,12 @@ void read_travelers_data_pair1(const char* filename, struct PassportNode** root)
         num_visits = atoi(token); // Convert NumberOfVisits to integer
 
         // Check if passport already exists in the BST
-        struct PassportNode* existing_passport = search_passport_node(*root, passport_number);
+        PassportNodePtr existing_passport = search_passport_node(tree->root, passport_number);
         if (existing_passport == NULL) {
             // Create a new passport node
             struct PassportNode* new_passport = init_passport(passport_number, first_name, last_name, nationality, date_of_birth, purpose_of_visit, visa_type);
             // Insert the passport node into the BST
-            insert_passport_node(root, new_passport);
+            insert_passport_node(tree, new_passport);
             // Insert the visited country into the linked list
             insert_country_node(&(new_passport->countries_visited), country, num_visits);
         }

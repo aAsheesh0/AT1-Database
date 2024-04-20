@@ -16,13 +16,21 @@ struct PassportNode {
     struct PassportNode* right;
 };
 
+// Defining a typedef for the Passport Node Pointer
+typedef struct PassportNode* PassportNodePtr;
+
+// Defining the structure for the entire BST
+typedef struct bst {
+    PassportNodePtr root;
+} PassportBST;
+
 // Function declarations
-struct PassportNode* init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]);
-void insert_passport_node(struct PassportNode** root, struct PassportNode* newNode);
-struct PassportNode* search_passport_node(struct PassportNode* root, char passport_number[]);
-void inorder_passport_traversal(struct PassportNode* root);
-void free_passport_tree(struct PassportNode* root);
+PassportNodePtr init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]);
+void insert_passport_node(PassportBST* tree, PassportNodePtr newNode);
+PassportNodePtr search_passport_node(PassportNodePtr root, char passport_number[]);
+void inorder_passport_traversal(PassportNodePtr root);
+void free_passport_tree(PassportNodePtr root);
 void test_bst_operations();
-int tree_height_BST(struct PassportNode* root);
+int tree_height_BST(PassportNodePtr root);
 
 #endif

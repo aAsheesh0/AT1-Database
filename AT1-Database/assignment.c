@@ -7,14 +7,15 @@
 #include "information.h"
 
 int main() {
-    //struct PassportNode* root = NULL;
-    struct AVLNode* root = NULL;
+    PassportNodePtr root = NULL;
+    PassportBST tree = { root };
+    //struct AVLNode* root = NULL;
     int choice = 0;
     double cpu_time_used;
     int Tree_height;
 
     // Performs BST operations testing
-    /*printf("Testing Binary Search Tree (BST) operations:\n");
+    printf("Testing Binary Search Tree (BST) operations:\n");
     test_bst_operations();
 
     // Performs linked list operations testing
@@ -22,7 +23,7 @@ int main() {
     test_linked_list_operations();
 
     // Performs AVL rotations testing
-    printf("\nTesting AVL rotations:\n");
+    /*printf("\nTesting AVL rotations:\n");
     test_AVL_rotations();
 
     // Performs AVL operations testing
@@ -37,20 +38,21 @@ int main() {
     clock_t start = clock();
 
     // Read data from travelers_data.csv, using BST and Linked List
-    //read_travelers_data_pair1("travelers_data.csv", &root);
+    read_travelers_data_pair1("travelers_data.csv", &tree);
+    inorder_passport_traversal(tree.root);
 
     // Read data from travelers_data.csv, using AVL and Linked List
-    read_travelers_data_pair2("travelers_data.csv", &root);
+    //read_travelers_data_pair2("travelers_data.csv", &root);
 
     // Stop measuring time
     clock_t end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
     
-    //Tree_height = tree_height_BST(root);
-    Tree_height = tree_height_AVL(root);
+    Tree_height = tree_height_BST(tree.root);
+    //Tree_height = tree_height_AVL(root);
     printf("Height of the tree is: %d\n", Tree_height);
-    printf("Number of rotations during structuring: %d\n", root->rotation_count);
+    //printf("Number of rotations during structuring: %d\n", root->rotation_count);
 
     while (choice != 5) {
         printf("\nPassport Database Operations\n");
@@ -69,20 +71,20 @@ int main() {
         
         switch (choice) {
         case 1:
-            //search_passport_by_number_pair1(root);
-            search_passport_by_number_pair2(root);
+            search_passport_by_number_pair1(tree);
+            //search_passport_by_number_pair2(root);
             break;
         case 2:
-            //display_passport_history_pair1(root);
-            display_passport_history_pair2(root);
+            display_passport_history_pair1(tree);
+            //display_passport_history_pair2(root);
             break;
         case 3:
-            //find_passports_by_nationality_pair1(root);
-            find_passports_by_nationality_pair2(root);
+            find_passports_by_nationality_pair1(tree);
+            //find_passports_by_nationality_pair2(root);
             break;
         case 4:
-            //add_passport_record_pair1(&root);
-            add_passport_record_pair2(&root);
+            add_passport_record_pair1(&tree);
+            //add_passport_record_pair2(&root);
             break;
         case 5:
             printf("Exiting program...\n");
@@ -94,9 +96,9 @@ int main() {
     }
 
     // Free memory allocated for BST
-    //free_passport_tree(root);
+    free_passport_tree(tree.root);
     // Free memory allocated for AVL
-    free_AVL_tree(root);
+    //free_AVL_tree(root);
 
     return 0;
 }
