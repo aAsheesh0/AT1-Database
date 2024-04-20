@@ -32,28 +32,34 @@ void search_passport_by_number_pair1(PassportBST tree) {
     printf("Passport not found.\n");
 }
 
-void search_passport_by_number_pair2(struct AVLNode* root) {
+void search_passport_by_number_pair2(PassportAVL* tree) {
+    if (tree == NULL || tree->root == NULL) {
+        printf("Passport database is empty.\n");
+        return;
+    }
+
     char passportNumber[20];
     printf("\nEnter passport number to search for: ");
     scanf("%s", passportNumber);
 
-    while (root != NULL) {
-        int comparisonResult = strcmp(passportNumber, root->passport_number);
-        if (comparisonResult == 0) {
+    AVLNodePtr current_node = tree->root;
+    while (current_node != NULL) {
+        int comparison_result = strcmp(passportNumber, current_node->passport_number);
+        if (comparison_result == 0) {
             printf("Valid Passport!\n");
-            printf("Passport Number: %s\n", root->passport_number);
-            printf("First Name: %s\n", root->first_name);
-            printf("Last Name: %s\n", root->last_name);
-            printf("Nationality: %s\n", root->nationality);
-            printf("Date of Birth: %s\n", root->date_of_birth);
+            printf("Passport Number: %s\n", current_node->passport_number);
+            printf("First Name: %s\n", current_node->first_name);
+            printf("Last Name: %s\n", current_node->last_name);
+            printf("Nationality: %s\n", current_node->nationality);
+            printf("Date of Birth: %s\n", current_node->date_of_birth);
 
             return;
         }
-        else if (comparisonResult < 0) {
-            root = root->left;
+        else if (comparison_result < 0) {
+            current_node = current_node->left;
         }
         else {
-            root = root->right;
+            current_node = current_node->right;
         }
     }
     printf("Passport not found.\n");
@@ -96,21 +102,21 @@ void find_passports_by_nationality_pair1(PassportBST tree) {
     }
 }
 
-void find_passports_by_nationality_pair2(struct AVLNode* root) {
-    char nationality[100];
-    printf("\nEnter nationality to search for: ");
-    scanf(" %[^\n]", nationality);
-
-    if (root == NULL) {
+void find_passports_by_nationality_pair2(PassportAVL* tree) {
+    if (tree == NULL || tree->root == NULL) {
         printf("No passport records found.\n");
         return;
     }
 
+    char nationality[100];
+    printf("\nEnter nationality to search for: ");
+    scanf(" %[^\n]", nationality);
+
     int found = 0;
 
-    struct AVLNode* stack[100];
+    AVLNodePtr stack[100];
     int top = -1;
-    struct AVLNode* current = root;
+    AVLNodePtr current = tree->root;
 
     while (current != NULL || top != -1) {
         while (current != NULL) {
@@ -195,7 +201,12 @@ void add_passport_record_pair1(PassportBST* tree) {
     printf("Time taken to add passport record: %f seconds.\n", cpu_time_used);
 }
 
-void add_passport_record_pair2(struct AVLNode** root) {
+void add_passport_record_pair2(PassportAVL* tree) {
+    if (tree == NULL) {
+        printf("Error: Invalid AVL tree pointer.\n");
+        return;
+    }
+
     char passport_number[20];
     char first_name[50];
     char last_name[50];
@@ -231,7 +242,7 @@ void add_passport_record_pair2(struct AVLNode** root) {
     scanf("%s", visa_type);
 
     // Create a new passport node
-    struct AVLNode* new_passport = init_AVL_node(passport_number, first_name, last_name, nationality,
+    AVLNodePtr new_passport = init_AVL_node(passport_number, first_name, last_name, nationality,
         date_of_birth, purpose_of_visit, visa_type);
 
     while (1) {
@@ -251,7 +262,7 @@ void add_passport_record_pair2(struct AVLNode** root) {
     }
 
     start = clock();
-    *root = insert_AVL_node(*root, new_passport);
+    insert_AVL_node(tree, new_passport);
     end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to add passport record to AVL: %.30f seconds.\n", cpu_time_used);
@@ -295,7 +306,7 @@ void display_passport_history_pair1(PassportBST tree) {
     //printf("Average time taken for BST search: %f seconds\n", average_time);
 }
 
-void display_passport_history_pair2(struct AVLNode* root) {
+void display_passport_history_pair2(PassportAVL* tree) {
     char passport_number[20];
     printf("\nEnter passport number to see the history: ");
     scanf("%s", passport_number);
@@ -307,7 +318,7 @@ void display_passport_history_pair2(struct AVLNode* root) {
     //for (int i = 0; i < num_repetitions; i++) {
         //start = clock(); // Start measuring time
 
-        struct AVLNode* passport = search_AVL_node(root, passport_number);
+        AVLNodePtr passport = search_AVL_node(tree->root, passport_number);
 
         //end = clock(); // Stop measuring time
         //double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;

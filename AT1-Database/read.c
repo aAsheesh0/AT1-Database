@@ -97,7 +97,7 @@ void read_travelers_data_pair1(const char* filename, PassportBST* tree) {
     fclose(file);
 }
 
-void read_travelers_data_pair2(const char* filename, struct AVLNode** root) {
+void read_travelers_data_pair2(const char* filename, PassportAVL* tree) {
     printf("AVL & Array!\n");
     //printf("\nAVL & Linked List!\n");
     
@@ -127,7 +127,7 @@ void read_travelers_data_pair2(const char* filename, struct AVLNode** root) {
         return; // If there's nothing to read, just return
     }
 
-    while (fgets(line, sizeof(line), file)) {
+    while (fgets(line, sizeof(line), file) && rows_read < 10) {
         // Parse the CSV line
         char* token;
         char* saveptr;
@@ -168,12 +168,12 @@ void read_travelers_data_pair2(const char* filename, struct AVLNode** root) {
         num_visits = atoi(token); // Convert NumberOfVisits to integer
 
         // Check if passport already exists in the AVL
-        struct AVLNode* existing_passport = search_AVL_node(*root, passport_number);
+        AVLNodePtr existing_passport = search_AVL_node(tree->root, passport_number);
         if (existing_passport == NULL) {
             // Create a new passport node
             struct AVLNode* new_passport = init_AVL_node(passport_number, first_name, last_name, nationality, date_of_birth, purpose_of_visit, visa_type);
             // Insert the passport node into the AVL
-            *root = insert_AVL_node(*root, new_passport);
+            insert_AVL_node(tree, new_passport);
             // Insert the visited country into the array
             insert_country_array(&(new_passport->countries_visited), country, num_visits);
             //insert_country_node(&(new_passport->countries_visited), country, num_visits);

@@ -4,8 +4,8 @@
 #include <string.h>
 #include "passport_AVL.h"
 
-struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
-    struct AVLNode* newNode = (struct AVLNode*)malloc(sizeof(struct AVLNode));
+AVLNodePtr init_AVL_node(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
+    AVLNodePtr newNode = (AVLNodePtr)malloc(sizeof(struct AVLNode));
     if (newNode == NULL) {
         printf("Memory allocation failed!\n");
         exit(1);
@@ -26,19 +26,19 @@ struct AVLNode* init_AVL_node(char passport_number[], char first_name[], char la
     return newNode;
 }
 
-int height(struct AVLNode* node) {
+int height(AVLNodePtr node) {
     if (node == NULL)
         return 0;
     return node->height;
 }
 
-int get_balance(struct AVLNode* node) {
+int get_balance(AVLNodePtr node) {
     if (node == NULL)
         return 0;
     return height(node->left) - height(node->right);
 }
 
-int tree_height_AVL(struct AVLNode* node) {
+int tree_height_AVL(AVLNodePtr node) {
     if (node == NULL)
         return 0;
     int left_height = tree_height_AVL(node->left);
@@ -48,9 +48,9 @@ int tree_height_AVL(struct AVLNode* node) {
     return 1 + ((left_height > right_height) ? left_height : right_height);
 }
 
-struct AVLNode* rotate_right(struct AVLNode* y) {
-    struct AVLNode* x = y->left;
-    struct AVLNode* T2 = x->right;
+AVLNodePtr rotate_right(AVLNodePtr y) {
+    AVLNodePtr x = y->left;
+    AVLNodePtr T2 = x->right;
 
     x->right = y;
     y->left = T2;
@@ -62,9 +62,9 @@ struct AVLNode* rotate_right(struct AVLNode* y) {
     return x;
 }
 
-struct AVLNode* rotate_left(struct AVLNode* x) {
-    struct AVLNode* y = x->right;
-    struct AVLNode* T2 = y->left;
+AVLNodePtr rotate_left(AVLNodePtr x) {
+    AVLNodePtr y = x->right;
+    AVLNodePtr T2 = y->left;
 
     y->left = x;
     x->right = T2;
@@ -76,18 +76,31 @@ struct AVLNode* rotate_left(struct AVLNode* x) {
     return y;
 }
 
-struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
+void insert_AVL_node(PassportAVL* tree, AVLNodePtr new_node) {
+    if (tree == NULL || new_node == NULL) {
+        return;
+    }
+
+    if (tree->root == NULL) {
+        tree->root = new_node;
+    }
+    else {
+        tree->root = insert_AVL_node_recursive(tree->root, new_node);
+    }
+}
+
+AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode) {
     if (node == NULL) {
         return newNode;
     }
 
     if (strcmp(newNode->passport_number, node->passport_number) < 0) {
         //printf("\nInserted on left!\n");
-        node->left = insert_AVL_node(node->left, newNode);
+        node->left = insert_AVL_node_recursive(node->left, newNode);
     }
     else if (strcmp(newNode->passport_number, node->passport_number) > 0) {
         //printf("\nInserted on right!\n");
-        node->right = insert_AVL_node(node->right, newNode);
+        node->right = insert_AVL_node_recursive(node->right, newNode);
     }
     else {
         return node;
@@ -98,31 +111,31 @@ struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
     int balance = get_balance(node);
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) < 0) {
-        /*printf("\nBefore right rotation:\n");
+        printf("\nBefore right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         return rotate_right(node);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) > 0) {
-        /*printf("\nBefore left rotation:\n");
+        printf("\nBefore left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         return rotate_left(node);
     }
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) > 0) {
-        /*printf("\nBefore left-right rotation:\n");
+        printf("\nBefore left-right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         node->left = rotate_left(node->left);
         return rotate_right(node);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) < 0) {
-        /*printf("\nBefore right-left rotation:\n");
+        printf("\nBefore right-left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         node->right = rotate_right(node->right);
         return rotate_left(node);
     }
@@ -130,7 +143,7 @@ struct AVLNode* insert_AVL_node(struct AVLNode* node, struct AVLNode* newNode) {
     return node;
 }
 
-struct AVLNode* search_AVL_node(struct AVLNode* node, char passport_number[]) {
+AVLNodePtr search_AVL_node(AVLNodePtr node, char passport_number[]) {
     if (node == NULL || strcmp(node->passport_number, passport_number) == 0) {
         return node;
     }
@@ -142,7 +155,7 @@ struct AVLNode* search_AVL_node(struct AVLNode* node, char passport_number[]) {
     return search_AVL_node(node->left, passport_number);
 }
 
-void inorder_AVL_traversal(struct AVLNode* node) {
+void inorder_AVL_traversal(AVLNodePtr node) {
     if (node != NULL) {
         inorder_AVL_traversal(node->left);
         printf("Passport Number: %s\n", node->passport_number);
@@ -154,7 +167,7 @@ void inorder_AVL_traversal(struct AVLNode* node) {
     }
 }
 
-void free_AVL_tree(struct AVLNode* node) {
+void free_AVL_tree(AVLNodePtr node) {
     if (node != NULL) {
         free_AVL_tree(node->left);
         free_AVL_tree(node->right);
