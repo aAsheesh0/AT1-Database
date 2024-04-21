@@ -17,7 +17,6 @@ struct AVLNode {
     struct AVLNode* left;
     struct AVLNode* right;
     int height;
-    int rotation_count;
 };
 
 // Defining a typedef for the AVL Node Pointer
@@ -26,6 +25,7 @@ typedef struct AVLNode* AVLNodePtr;
 // Defining the structure for the entire AVL
 typedef struct avl {
     AVLNodePtr root;
+    int rotation_count;
 } PassportAVL;
 
 //prototypes
@@ -33,10 +33,10 @@ AVLNodePtr init_AVL_node(char passport_number[], char first_name[], char last_na
 int height(AVLNodePtr node);
 int tree_height_AVL(AVLNodePtr node);
 int get_balance(AVLNodePtr node);
-AVLNodePtr rotate_right(AVLNodePtr y);
-AVLNodePtr rotate_left(AVLNodePtr x);
+AVLNodePtr rotate_right(AVLNodePtr y, PassportAVL* tree);
+AVLNodePtr rotate_left(AVLNodePtr x, PassportAVL* tree);
 void insert_AVL_node(PassportAVL* tree, AVLNodePtr new_node);
-AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode);
+AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode, PassportAVL* tree);
 AVLNodePtr search_AVL_node(AVLNodePtr node, char passport_number[]);
 void inorder_AVL_traversal(AVLNodePtr node);
 void free_AVL_tree(AVLNodePtr node);

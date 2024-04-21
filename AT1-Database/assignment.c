@@ -9,7 +9,7 @@
 int main() {
     //PassportNodePtr root = NULL;
     //PassportBST tree = { root };
-    PassportAVL tree = { NULL };
+    PassportAVL tree = { NULL , 0};
     
     int choice = 0;
     double cpu_time_used;
@@ -51,9 +51,9 @@ int main() {
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
     
     //Tree_height = tree_height_BST(tree.root);
-    //Tree_height = tree_height_AVL(tree.root);
-    //printf("Height of the tree is: %d\n", Tree_height);
-    //printf("Number of rotations during structuring: %d\n", tree.root->rotation_count);
+    Tree_height = tree_height_AVL(tree.root);
+    printf("Height of the tree is: %d\n", Tree_height);
+    printf("Number of rotations during structuring: %d\n", tree.rotation_count);
 
     while (choice != 5) {
         printf("\nPassport Database Operations\n");

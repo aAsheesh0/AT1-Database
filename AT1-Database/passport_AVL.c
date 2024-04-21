@@ -22,7 +22,7 @@ AVLNodePtr init_AVL_node(char passport_number[], char first_name[], char last_na
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->height = 1;
-    newNode->rotation_count = 0;
+    //newNode->rotation_count = 0;
     return newNode;
 }
 
@@ -48,7 +48,7 @@ int tree_height_AVL(AVLNodePtr node) {
     return 1 + ((left_height > right_height) ? left_height : right_height);
 }
 
-AVLNodePtr rotate_right(AVLNodePtr y) {
+AVLNodePtr rotate_right(AVLNodePtr y, PassportAVL* tree) {
     AVLNodePtr x = y->left;
     AVLNodePtr T2 = x->right;
 
@@ -58,11 +58,11 @@ AVLNodePtr rotate_right(AVLNodePtr y) {
     y->height = 1 + ((height(y->left) > height(y->right)) ? height(y->left) : height(y->right));
     x->height = 1 + ((height(x->left) > height(x->right)) ? height(x->left) : height(x->right));
 
-    x->rotation_count++;
+    tree->rotation_count++;
     return x;
 }
 
-AVLNodePtr rotate_left(AVLNodePtr x) {
+AVLNodePtr rotate_left(AVLNodePtr x, PassportAVL* tree) {
     AVLNodePtr y = x->right;
     AVLNodePtr T2 = y->left;
 
@@ -72,7 +72,7 @@ AVLNodePtr rotate_left(AVLNodePtr x) {
     x->height = 1 + ((height(x->left) > height(x->right)) ? height(x->left) : height(x->right));
     y->height = 1 + ((height(y->left) > height(y->right)) ? height(y->left) : height(y->right));
 
-    y->rotation_count++;
+    tree->rotation_count++;
     return y;
 }
 
@@ -85,22 +85,22 @@ void insert_AVL_node(PassportAVL* tree, AVLNodePtr new_node) {
         tree->root = new_node;
     }
     else {
-        tree->root = insert_AVL_node_recursive(tree->root, new_node);
+        tree->root = insert_AVL_node_recursive(tree->root, new_node, tree);
     }
 }
 
-AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode) {
+AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode, PassportAVL* tree) {
     if (node == NULL) {
         return newNode;
     }
 
     if (strcmp(newNode->passport_number, node->passport_number) < 0) {
         //printf("\nInserted on left!\n");
-        node->left = insert_AVL_node_recursive(node->left, newNode);
+        node->left = insert_AVL_node_recursive(node->left, newNode, tree);
     }
     else if (strcmp(newNode->passport_number, node->passport_number) > 0) {
         //printf("\nInserted on right!\n");
-        node->right = insert_AVL_node_recursive(node->right, newNode);
+        node->right = insert_AVL_node_recursive(node->right, newNode, tree);
     }
     else {
         return node;
@@ -111,33 +111,33 @@ AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode) {
     int balance = get_balance(node);
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) < 0) {
-        printf("\nBefore right rotation:\n");
+        /**printf("\nBefore right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
-        return rotate_right(node);
+        printf("\n");*/
+        return rotate_right(node, tree);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) > 0) {
-        printf("\nBefore left rotation:\n");
+        /*printf("\nBefore left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
-        return rotate_left(node);
+        printf("\n");*/
+        return rotate_left(node, tree);
     }
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) > 0) {
-        printf("\nBefore left-right rotation:\n");
+        /**printf("\nBefore left-right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
-        node->left = rotate_left(node->left);
-        return rotate_right(node);
+        printf("\n");/**/
+        node->left = rotate_left(node->left, tree);
+        return rotate_right(node, tree);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) < 0) {
-        printf("\nBefore right-left rotation:\n");
+        /**printf("\nBefore right-left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");
-        node->right = rotate_right(node->right);
-        return rotate_left(node);
+        printf("\n");*/
+        node->right = rotate_right(node->right, tree);
+        return rotate_left(node, tree);
     }
 
     return node;
