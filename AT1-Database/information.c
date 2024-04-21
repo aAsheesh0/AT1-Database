@@ -65,6 +65,7 @@ void search_passport_by_number_pair2(PassportAVL* tree) {
     printf("Passport not found.\n");
 }
 
+
 void find_passports_by_nationality_pair1(PassportBST tree) {
     char nationality[100];
     printf("\nEnter nationality to search for: ");
@@ -138,6 +139,7 @@ void find_passports_by_nationality_pair2(PassportAVL* tree) {
         printf("No passport records found for nationality: %s\n", nationality);
     }
 }
+
 
 void add_passport_record_pair1(PassportBST* tree) {
     char passport_number[20];
@@ -268,6 +270,7 @@ void add_passport_record_pair2(PassportAVL* tree) {
     printf("Time taken to add passport record to AVL: %.30f seconds.\n", cpu_time_used);
 }
 
+
 void display_passport_history_pair1(PassportBST tree) {
     char passport_number[20];
     printf("\nEnter passport number to see the history: ");
@@ -341,4 +344,172 @@ void display_passport_history_pair2(PassportAVL* tree) {
 
     //double average_time = total_time / num_repetitions;
     //printf("Average time taken for AVL search: %f seconds\n", average_time);
+}
+
+
+void delete_passport_record_pair1(PassportBST* tree) {
+    char passport_number[20];
+    printf("Enter the Passport number to Delete: ");
+    scanf("%s", passport_number);
+
+    if (tree == NULL || tree->root == NULL) {
+        printf("Tree is Empty!\n");
+        return;
+    }
+
+    PassportNodePtr node_to_delete = search_passport_node(tree->root, passport_number);
+
+    if (node_to_delete == NULL) {
+        printf("No Record with %s number found to Delete!\n", passport_number);
+        return;
+    }
+    
+    if (node_to_delete->left == NULL && node_to_delete->right == NULL) {
+        delete_node(tree, node_to_delete);
+        printf("Record with Passport number %s deleted successfully 1!\n", passport_number);
+    }
+    else if (node_to_delete->left == NULL || node_to_delete->right == NULL) {
+        delete_node_with_one_child(tree, node_to_delete);
+        printf("Record with Passport number %s deleted successfully 2!\n", passport_number);
+    }
+    else {
+        PassportNodePtr successor = find_inorder_successor(tree->root,node_to_delete);
+
+        copy_passport_data(node_to_delete, successor);
+
+        // Checking if successor has children
+        if ((successor->left != NULL && successor->right == NULL) || (successor->left == NULL && successor->right != NULL)) {
+            delete_node_with_one_child(tree, successor);
+        }
+        else {
+            delete_node(tree, successor);
+        }
+        printf("Record with Passport number %s deleted successfully 3!\n", passport_number);
+    }
+}
+
+void delete_node(PassportBST* tree, PassportNodePtr node) {
+    if (node == NULL) {
+        return;
+    }
+
+    if (node == tree->root) {
+        if (tree->root->left == NULL && tree->root->right == NULL) {
+            free(tree->root);
+            tree->root = NULL;
+        }
+        else if (tree->root->left == NULL) {
+            PassportNodePtr temp = tree->root;
+            tree->root = tree->root->right;
+            free(temp);
+        }
+        else if (tree->root->right == NULL) {
+            PassportNodePtr temp = tree->root;
+            tree->root = tree->root->left;
+            free(temp);
+        }
+    }
+    else {
+        PassportNodePtr parent = find_parent(tree->root, node->passport_number);
+        if (parent != NULL) {
+            if (parent->left == node) {
+                parent->left = NULL;
+            }
+            else {
+                parent->right = NULL;
+            }
+            free(node);
+        }
+    }
+}
+
+void delete_node_with_one_child(PassportBST* tree, PassportNodePtr node) {
+    if (node == NULL) {
+        return;
+    }
+
+    PassportNodePtr child = (node->left != NULL) ? node->left : node->right;
+
+    if (node == tree->root) {
+        tree->root = child;
+    }
+    else {
+        PassportNodePtr parent = find_parent(tree->root, node->passport_number);
+        if (parent != NULL) {
+            if (parent->left == node) {
+                parent->left = child;
+            }
+            else {
+                parent->right = child;
+            }
+        }
+    }
+    free(node);
+}
+
+PassportNodePtr find_parent(PassportNodePtr root, char passport_number[]) {
+    if (root == NULL || (root->left == NULL && root->right == NULL)) {
+        return NULL;
+    }
+    
+    if ((root->left != NULL && strcmp(root->left->passport_number, passport_number) == 0) ||
+        (root->right != NULL && strcmp(root->right->passport_number, passport_number) == 0)) {
+        return root;
+    }
+
+    PassportNodePtr parent = find_parent(root->left, passport_number);
+    if (parent == NULL) {
+        parent = find_parent(root->right, passport_number);
+    }
+    return parent;
+}
+
+PassportNodePtr find_inorder_successor(PassportNodePtr root, PassportNodePtr node) {
+    PassportNodePtr successor = node->right;
+
+    if (node->right != NULL) {
+        successor = node->right;
+        while (successor->left != NULL) {
+            successor = successor->left;
+        }
+        printf("Successor is: %s\n", successor->passport_number);
+        return successor;
+    }
+
+    while (root != NULL) {
+        if (strcmp(node->passport_number, root->passport_number) < 0) {
+            successor = root;
+            root = root->left;
+        }
+        else if (strcmp(node->passport_number, root->passport_number) > 0) {
+            root = root->right;
+        }
+        else {
+            if (root->right != NULL) {
+                successor = root->right;
+                while (successor->left != NULL) {
+                    successor = successor->left;
+                }
+            }
+        }
+        break;
+    }
+    printf("Successor is: %s\n", successor->passport_number);
+    return successor;
+}
+
+void copy_passport_data(PassportNodePtr destination, PassportNodePtr source) {
+    if (destination == NULL || source == NULL) {
+        return;
+    }
+
+    strcpy(destination->passport_number, source->passport_number);
+    strcpy(destination->first_name, source->first_name);
+    strcpy(destination->last_name, source->last_name);
+    strcpy(destination->nationality, source->nationality);
+    strcpy(destination->date_of_birth, source->date_of_birth);
+    strcpy(destination->purpose_of_visit, source->purpose_of_visit);
+    strcpy(destination->visa_type, source->visa_type);
+
+    destination->countries_visited = source->countries_visited;
 }
