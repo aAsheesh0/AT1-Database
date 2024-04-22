@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "information.h"
+#include "passport_AVL.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -365,30 +366,30 @@ void delete_passport_record_pair1(PassportBST* tree) {
     }
     
     if (node_to_delete->left == NULL && node_to_delete->right == NULL) {
-        delete_node(tree, node_to_delete);
+        delete_node_BST(tree, node_to_delete);
         printf("Record with Passport number %s deleted successfully 1!\n", passport_number);
     }
     else if (node_to_delete->left == NULL || node_to_delete->right == NULL) {
-        delete_node_with_one_child(tree, node_to_delete);
+        delete_node_with_one_child_BST(tree, node_to_delete);
         printf("Record with Passport number %s deleted successfully 2!\n", passport_number);
     }
     else {
-        PassportNodePtr successor = find_inorder_successor(tree->root,node_to_delete);
+        PassportNodePtr successor = find_inorder_successor_BST(tree->root,node_to_delete);
 
-        copy_passport_data(node_to_delete, successor);
+        copy_passport_data_BST(node_to_delete, successor);
 
         // Checking if successor has children
         if ((successor->left != NULL && successor->right == NULL) || (successor->left == NULL && successor->right != NULL)) {
-            delete_node_with_one_child(tree, successor);
+            delete_node_with_one_child_BST(tree, successor);
         }
         else {
-            delete_node(tree, successor);
+            delete_node_BST(tree, successor);
         }
         printf("Record with Passport number %s deleted successfully 3!\n", passport_number);
     }
 }
 
-void delete_node(PassportBST* tree, PassportNodePtr node) {
+void delete_node_BST(PassportBST* tree, PassportNodePtr node) {
     if (node == NULL) {
         return;
     }
@@ -410,7 +411,7 @@ void delete_node(PassportBST* tree, PassportNodePtr node) {
         }
     }
     else {
-        PassportNodePtr parent = find_parent(tree->root, node->passport_number);
+        PassportNodePtr parent = find_parent_BST(tree->root, node->passport_number);
         if (parent != NULL) {
             if (parent->left == node) {
                 parent->left = NULL;
@@ -423,7 +424,7 @@ void delete_node(PassportBST* tree, PassportNodePtr node) {
     }
 }
 
-void delete_node_with_one_child(PassportBST* tree, PassportNodePtr node) {
+void delete_node_with_one_child_BST(PassportBST* tree, PassportNodePtr node) {
     if (node == NULL) {
         return;
     }
@@ -434,7 +435,7 @@ void delete_node_with_one_child(PassportBST* tree, PassportNodePtr node) {
         tree->root = child;
     }
     else {
-        PassportNodePtr parent = find_parent(tree->root, node->passport_number);
+        PassportNodePtr parent = find_parent_BST(tree->root, node->passport_number);
         if (parent != NULL) {
             if (parent->left == node) {
                 parent->left = child;
@@ -447,7 +448,7 @@ void delete_node_with_one_child(PassportBST* tree, PassportNodePtr node) {
     free(node);
 }
 
-PassportNodePtr find_parent(PassportNodePtr root, char passport_number[]) {
+PassportNodePtr find_parent_BST(PassportNodePtr root, char passport_number[]) {
     if (root == NULL || (root->left == NULL && root->right == NULL)) {
         return NULL;
     }
@@ -457,14 +458,14 @@ PassportNodePtr find_parent(PassportNodePtr root, char passport_number[]) {
         return root;
     }
 
-    PassportNodePtr parent = find_parent(root->left, passport_number);
+    PassportNodePtr parent = find_parent_BST(root->left, passport_number);
     if (parent == NULL) {
-        parent = find_parent(root->right, passport_number);
+        parent = find_parent_BST(root->right, passport_number);
     }
     return parent;
 }
 
-PassportNodePtr find_inorder_successor(PassportNodePtr root, PassportNodePtr node) {
+PassportNodePtr find_inorder_successor_BST(PassportNodePtr root, PassportNodePtr node) {
     PassportNodePtr successor = node->right;
 
     if (node->right != NULL) {
@@ -498,7 +499,7 @@ PassportNodePtr find_inorder_successor(PassportNodePtr root, PassportNodePtr nod
     return successor;
 }
 
-void copy_passport_data(PassportNodePtr destination, PassportNodePtr source) {
+void copy_passport_data_BST(PassportNodePtr destination, PassportNodePtr source) {
     if (destination == NULL || source == NULL) {
         return;
     }
@@ -512,4 +513,195 @@ void copy_passport_data(PassportNodePtr destination, PassportNodePtr source) {
     strcpy(destination->visa_type, source->visa_type);
 
     destination->countries_visited = source->countries_visited;
+}
+
+
+
+void delete_passport_record_pair2(PassportAVL* tree) {
+    char passport_number[20];
+    printf("Enter the Passport number to Delete: ");
+    scanf("%s", passport_number);
+
+    if (tree == NULL || tree->root == NULL) {
+        printf("Tree is Empty!\n");
+        return;
+    }
+
+    AVLNodePtr node_to_delete = search_AVL_node(tree->root, passport_number);
+
+    if (node_to_delete == NULL) {
+        printf("No Record with %s number found to Delete!\n", passport_number);
+        return;
+    }
+
+    if (node_to_delete->left == NULL && node_to_delete->right == NULL) {
+        delete_node_AVL(tree, node_to_delete);
+        printf("Record with Passport number %s deleted successfully 1!\n", passport_number);
+    }
+    else if (node_to_delete->left == NULL || node_to_delete->right == NULL) {
+        delete_node_with_one_child_AVL(tree, node_to_delete);
+        printf("Record with Passport number %s deleted successfully 2!\n", passport_number);
+    }
+    else {
+        AVLNodePtr successor = find_inorder_successor_AVL(tree->root, node_to_delete);
+
+        copy_passport_data_AVL(node_to_delete, successor);
+
+        // Checking if successor has children
+        if ((successor->left != NULL && successor->right == NULL) || (successor->left == NULL && successor->right != NULL)) {
+            delete_node_with_one_child_AVL(tree, successor);
+        }
+        else {
+            delete_node_AVL(tree, successor);
+        }
+        printf("Record with Passport number %s deleted successfully 3!\n", passport_number);
+    }
+}
+
+void delete_node_AVL(PassportAVL* tree, AVLNodePtr node) {
+    if (node == NULL) {
+        return;
+    }
+    
+    if (node == tree->root) {
+        if (tree->root->left == NULL && tree->root->right == NULL) {
+            free(tree->root);
+            tree->root = NULL;
+        }
+        else if (tree->root->left == NULL) {
+            AVLNodePtr temp = tree->root;
+            tree->root = tree->root->right;
+            free(temp);
+        }
+        else if (tree->root->right == NULL) {
+            AVLNodePtr temp = tree->root;
+            tree->root = tree->root->left;
+            free(temp);
+        }
+        balance_tree_check(tree, NULL);
+    }
+    else {
+        AVLNodePtr parent = find_parent_AVL(tree->root, node->passport_number);
+        if (parent != NULL) {
+            if (parent->left == node) {
+                parent->left = NULL;
+            }
+            else {
+                parent->right = NULL;
+            }
+            balance_tree_check(tree, node);
+            free(node);
+        }
+    }
+}
+
+void delete_node_with_one_child_AVL(PassportAVL* tree, AVLNodePtr node) {
+    if (node == NULL) {
+        return;
+    }
+
+    AVLNodePtr child = (node->left != NULL) ? node->left : node->right;
+
+    if (node == tree->root) {
+        tree->root = child;
+    }
+    else {
+        AVLNodePtr parent = find_parent_AVL(tree->root, node->passport_number);
+        if (parent != NULL) {
+            if (parent->left == node) {
+                parent->left = child;
+            }
+            else {
+                parent->right = child;
+            }
+            balance_tree_check(tree, node);
+        }
+    }
+    free(node);
+}
+
+AVLNodePtr find_parent_AVL(AVLNodePtr root, char passport_number[]) {
+    if (root == NULL || (root->left == NULL && root->right == NULL)) {
+        return NULL;
+    }
+
+    if ((root->left != NULL && strcmp(root->left->passport_number, passport_number) == 0) ||
+        (root->right != NULL && strcmp(root->right->passport_number, passport_number) == 0)) {
+        return root;
+    }
+
+    AVLNodePtr parent = find_parent_AVL(root->left, passport_number);
+    if (parent == NULL) {
+        parent = find_parent_AVL(root->right, passport_number);
+    }
+
+    return parent;
+}
+
+AVLNodePtr find_inorder_successor_AVL(AVLNodePtr root) {
+    AVLNodePtr current = root;
+
+    // Go to the leftmost node in the right subtree
+    while (current != NULL && current->left != NULL) {
+        current = current->left;
+    }
+
+    return current;
+}
+
+void copy_passport_data_AVL(AVLNodePtr destination, AVLNodePtr source) {
+    if (destination == NULL || source == NULL) {
+        return;
+    }
+
+    strcpy(destination->passport_number, source->passport_number);
+    strcpy(destination->first_name, source->first_name);
+    strcpy(destination->last_name, source->last_name);
+    strcpy(destination->nationality, source->nationality);
+    strcpy(destination->date_of_birth, source->date_of_birth);
+    strcpy(destination->purpose_of_visit, source->purpose_of_visit);
+    strcpy(destination->visa_type, source->visa_type);
+
+    destination->countries_visited = source->countries_visited;
+}
+
+void balance_tree_check(PassportAVL* tree, AVLNodePtr root) {
+    if (tree == NULL || root == NULL) {
+        return;
+    }
+
+    root->height = 1 + max(height(root->left), height(root->right));
+
+    int balance = get_balance(root);
+    // If the node becomes unbalanced, perform rotations
+    if (balance > 1) {
+        if (get_balance(root->left) >= 0) {
+            // Left Left Case
+            printf("Left Left Case\n");
+            root = rotate_right(root, tree);
+        }
+        else {
+            // Left Right Case
+            printf("Left Right Case\n");
+            root->left = rotate_left(root->left, tree);
+            root = rotate_right(root, tree);
+        }
+    }
+    else if (balance < -1) {
+        if (get_balance(root->right) <= 0) {
+            // Right Right Case
+            printf("Right Right Case\n");
+            root = rotate_left(root, tree);
+        }
+        else {
+            // Right Left Case
+            printf("Right Left Case\n");
+            root->right = rotate_right(root->right, tree);
+            root = rotate_left(root, tree);
+        }
+    }
+
+    if (root == tree->root) {
+        tree->root = root;
+    }
 }
