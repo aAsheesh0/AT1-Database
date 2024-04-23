@@ -187,135 +187,116 @@ void delete_passport_record_pair1(PassportBST* tree) {
         return;
     }
     
+    // Case1: Leaf node to be deleted
     if (node_to_delete->left == NULL && node_to_delete->right == NULL) {
-        delete_node_BST(tree, node_to_delete);
+        delete_leaf_node_BST(tree, node_to_delete);
         printf("Record with Passport number %s deleted successfully 1!\n", passport_number);
     }
+    // Case2: Node with one child to be deleted
     else if (node_to_delete->left == NULL || node_to_delete->right == NULL) {
         delete_node_with_one_child_BST(tree, node_to_delete);
         printf("Record with Passport number %s deleted successfully 2!\n", passport_number);
     }
+    // Case3: Node with two child to be deleted
     else {
-        PassportNodePtr successor = find_inorder_successor_BST(tree->root,node_to_delete);
-
-        copy_passport_data_BST(node_to_delete, successor);
-
-        // Checking if successor has children
-        if ((successor->left != NULL && successor->right == NULL) || (successor->left == NULL && successor->right != NULL)) {
-            delete_node_with_one_child_BST(tree, successor);
-        }
-        else {
-            delete_node_BST(tree, successor);
-        }
+        delete_node_with_two_child_BST(tree, node_to_delete);
         printf("Record with Passport number %s deleted successfully 3!\n", passport_number);
     }
 }
 
-void delete_node_BST(PassportBST* tree, PassportNodePtr node) {
-    if (node == NULL) {
-        return;
-    }
+void delete_leaf_node_BST(PassportBST* tree, PassportNodePtr node) {
+    PassportNodePtr parent = find_parent_BST(tree->root, node);
 
-    if (node == tree->root) {
-        if (tree->root->left == NULL && tree->root->right == NULL) {
-            free(tree->root);
-            tree->root = NULL;
+    if (parent != NULL) {
+        if (parent->left == node) {
+            parent->left = NULL;
         }
-        else if (tree->root->left == NULL) {
-            PassportNodePtr temp = tree->root;
-            tree->root = tree->root->right;
-            free(temp);
-        }
-        else if (tree->root->right == NULL) {
-            PassportNodePtr temp = tree->root;
-            tree->root = tree->root->left;
-            free(temp);
+        else {
+            parent->right = NULL;
         }
     }
     else {
-        PassportNodePtr parent = find_parent_BST(tree->root, node->passport_number);
-        if (parent != NULL) {
-            if (parent->left == node) {
-                parent->left = NULL;
-            }
-            else {
-                parent->right = NULL;
-            }
-            free(node);
-        }
+        free(node);
+        tree->root = NULL;
     }
 }
 
 void delete_node_with_one_child_BST(PassportBST* tree, PassportNodePtr node) {
-    if (node == NULL) {
-        return;
-    }
-
+    PassportNodePtr parent = find_parent_BST(tree->root, node);
     PassportNodePtr child = (node->left != NULL) ? node->left : node->right;
 
-    if (node == tree->root) {
+    if (parent==NULL) {
         tree->root = child;
     }
     else {
-        PassportNodePtr parent = find_parent_BST(tree->root, node->passport_number);
-        if (parent != NULL) {
-            if (parent->left == node) {
-                parent->left = child;
-            }
-            else {
-                parent->right = child;
-            }
+        if (parent->left == node) {
+            printf("\nParent is: %s\n", parent->passport_number);
+            printf("Child is: %s\n\n", child->passport_number);
+            parent->left = child;
+        }
+        else {
+            printf("\nParent is: %s\n", parent->passport_number);
+            printf("\Child is: %s\n", child->passport_number);
+            parent->right = child;
         }
     }
     free(node);
 }
 
-PassportNodePtr find_parent_BST(PassportNodePtr root, char passport_number[]) {
-    if (root == NULL || (root->left == NULL && root->right == NULL)) {
+void delete_node_with_two_child_BST(PassportBST* tree, PassportNodePtr node) {
+    PassportNodePtr successor = find_inorder_successor_BST(tree->root, node);
+    PassportNodePtr parent = find_parent_BST(tree->root, successor);
+
+    copy_passport_data_BST(node, successor);
+    if (successor->left == NULL && successor->right == NULL) {
+        delete_leaf_node_BST(tree, successor);
+    }
+    else {
+        delete_node_with_one_child_BST(tree, successor);
+    }
+}
+
+PassportNodePtr find_parent_BST(PassportNodePtr root, PassportNodePtr node) {
+    if (root == NULL || (root == node)) {
         return NULL;
     }
     
-    if ((root->left != NULL && strcmp(root->left->passport_number, passport_number) == 0) ||
-        (root->right != NULL && strcmp(root->right->passport_number, passport_number) == 0)) {
+    if ((root->left == node)||(root->right == node)) {
         return root;
     }
 
-    PassportNodePtr parent = find_parent_BST(root->left, passport_number);
-    if (parent == NULL) {
-        parent = find_parent_BST(root->right, passport_number);
-    }
-    return parent;
+    PassportNodePtr left_parent = find_parent_BST(root->left, node);
+    PassportNodePtr right_parent = find_parent_BST(root->right, node);
+
+    return (left_parent != NULL) ? left_parent : right_parent;
 }
 
 PassportNodePtr find_inorder_successor_BST(PassportNodePtr root, PassportNodePtr node) {
-    PassportNodePtr successor = node->right;
+    if (root == NULL || node == NULL) {
+        return NULL;
+    }
+    PassportNodePtr successor = NULL;
 
     if (node->right != NULL) {
         successor = node->right;
         while (successor->left != NULL) {
             successor = successor->left;
         }
-        printf("Successor is: %s\n", successor->passport_number);
-        return successor;
     }
-
-    while (root != NULL) {
-        if (strcmp(node->passport_number, root->passport_number) < 0) {
-            successor = root;
-            root = root->left;
-        }
-        else if (strcmp(node->passport_number, root->passport_number) > 0) {
-            root = root->right;
-        }
-        else {
-            if (root->right != NULL) {
-                successor = root->right;
-                while (successor->left != NULL) {
-                    successor = successor->left;
-                }
+    else {
+        PassportNodePtr current = root;
+        while (current != NULL) {
+            if (node->passport_number < current->passport_number) {
+                successor = current;
+                current = current->left;
+            }
+            else if (node->passport_number > current->passport_number) {
+                current = current->right;
+            }
+            else {
+                break;
             }
         }
-        break;
     }
     printf("Successor is: %s\n", successor->passport_number);
     return successor;

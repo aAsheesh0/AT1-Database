@@ -19,9 +19,10 @@ void add_passport_record_pair2(PassportAVL* tree);
 void delete_passport_record_pair1(PassportBST* tree);
 void delete_passport_record_pair2(PassportAVL* tree);
 
-void delete_node_BST(PassportBST* tree, PassportNodePtr node);
+void delete_leaf_node_BST(PassportBST* tree, PassportNodePtr node);
 void delete_node_with_one_child_BST(PassportBST* tree, PassportNodePtr node);
-PassportNodePtr find_parent_BST(PassportNodePtr root, char passport_number[]);
+void delete_node_with_two_child_BST(PassportBST* tree, PassportNodePtr node);
+PassportNodePtr find_parent_BST(PassportNodePtr root, PassportNodePtr node);
 PassportNodePtr find_inorder_successor_BST(PassportNodePtr root, PassportNodePtr node);
 void copy_passport_data_BST(PassportNodePtr destination, PassportNodePtr source);
 
