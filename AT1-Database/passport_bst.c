@@ -70,10 +70,11 @@ PassportNodePtr search_passport_node(PassportNodePtr root, char passport_number[
 void inorder_passport_traversal(PassportNodePtr root) {
     if (root != NULL) {
         inorder_passport_traversal(root->left);
-        printf("Passport Number: %s, First Name: %s.\n", root->passport_number, root->first_name);
+        printf("Passport Number: %s\n", root->passport_number);
+        //printf("Passport Number: %s, First Name: %s\n", root->passport_number, root->first_name);
         struct CountryNode* countryPtr = root->countries_visited;
         while (countryPtr != NULL) {
-            printf("Visited Country: %s, Number of Visits: %d\n", countryPtr->country, countryPtr->num_visits);
+            printf("Country: %s, Visits: %d\n", countryPtr->country, countryPtr->num_visits);
             countryPtr = countryPtr->next;
         }
         inorder_passport_traversal(root->right);

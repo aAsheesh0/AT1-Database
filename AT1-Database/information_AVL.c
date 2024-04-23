@@ -223,10 +223,10 @@ void delete_leaf_node_AVL(PassportAVL* tree, AVLNodePtr node) {
         else {
             parent->right = NULL;
         }
-        balance_tree_check(tree, parent);
+        balance_tree_check(tree, &parent);
         parent = find_parent_AVL(tree->root, parent);
         while (parent != NULL) {
-            balance_tree_check(tree, parent);
+            balance_tree_check(tree, &parent);
             parent = find_parent_AVL(tree->root, parent);
         }
     }
@@ -251,10 +251,10 @@ void delete_node_with_one_child_AVL(PassportAVL* tree, AVLNodePtr node) {
         else {
             parent->right = child;
         }
-        balance_tree_check(tree, parent);
+        balance_tree_check(tree, &parent);
         parent = find_parent_AVL(tree->root, parent);
         while (parent != NULL) {
-            balance_tree_check(tree, parent);
+            balance_tree_check(tree, &parent);
             parent = find_parent_AVL(tree->root, parent);
         }
     }
@@ -268,19 +268,19 @@ void delete_node_with_two_child_AVL(PassportAVL* tree, AVLNodePtr node) {
     copy_passport_data_AVL(node, successor);
     if (successor->left == NULL && successor->right == NULL) {
         delete_leaf_node_AVL(tree, successor);
-        balance_tree_check(tree, parent);
+        balance_tree_check(tree, &parent);
         parent = find_parent_AVL(tree->root, parent);
         while (parent != NULL) {
-            balance_tree_check(tree, parent);
+            balance_tree_check(tree, &parent);
             parent = find_parent_AVL(tree->root, parent);
         }
     }
     else {
         delete_node_with_one_child_AVL(tree, successor);
-        balance_tree_check(tree, parent);
+        balance_tree_check(tree, &parent);
         parent = find_parent_AVL(tree->root, parent);
         while (parent != NULL) {
-            balance_tree_check(tree, parent);
+            balance_tree_check(tree, &parent);
             parent = find_parent_AVL(tree->root, parent);
         }
     }
@@ -348,10 +348,11 @@ void copy_passport_data_AVL(AVLNodePtr destination, AVLNodePtr source) {
     destination->countries_visited = source->countries_visited;
 }
 
-void balance_tree_check(PassportAVL* tree, AVLNodePtr root) {
-    if (tree == NULL || root == NULL) {
+void balance_tree_check(PassportAVL* tree, AVLNodePtr* rootPtr) {
+    if (tree == NULL || *rootPtr == NULL) {
         return;
     }
+    AVLNodePtr root = *rootPtr;
 
     root->height = 1 + max(height(root->left), height(root->right));
     printf("\nRotation Check!\n");
@@ -365,30 +366,41 @@ void balance_tree_check(PassportAVL* tree, AVLNodePtr root) {
         if (get_balance(root->left) >= 0) {
             // Left Left Case
             printf("Left Left Case\n");
-            tree->root = rotate_right(root, tree);
+            *rootPtr = rotate_right(root, tree);
         }
         else {
             // Left Right Case
             printf("Left Right Case\n");
             root->left = rotate_left(root->left, tree);
-            tree->root = rotate_right(root, tree);
+            *rootPtr = rotate_right(root, tree);
         }
     }
     else if (balance < -1) {
         if (get_balance(root->right) <= 0) {
             // Right Right Case
             printf("Right Right Case\n");
-            tree->root = rotate_left(root, tree);
+            *rootPtr = rotate_left(root, tree);
         }
         else {
             // Right Left Case
             printf("Right Left Case\n");
             root->right = rotate_right(root->right, tree);
-            tree->root = rotate_left(root, tree);
+            *rootPtr = rotate_left(root, tree);
         }
     }
 
-    if (root == tree->root) {
-        tree->root = root;
+    AVLNodePtr parent = find_parent_AVL(tree->root, root);
+    if (parent != NULL) {
+        if (parent->left == root) {
+            parent->left = *rootPtr;
+        }
+        else {
+            parent->right = *rootPtr;
+        }
     }
+    else {
+        tree->root = *rootPtr;
+    }
+
+    printf("Current root node: %s\n", tree->root->passport_number);
 }

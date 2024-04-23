@@ -127,7 +127,7 @@ void read_travelers_data_pair2(const char* filename, PassportAVL* tree) {
         return; // If there's nothing to read, just return
     }
 
-    while (fgets(line, sizeof(line), file) && rows_read < 24) {
+    while (fgets(line, sizeof(line), file) && rows_read < 30) {
         // Parse the CSV line
         char* token;
         char* saveptr;

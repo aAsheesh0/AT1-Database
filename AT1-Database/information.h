@@ -31,6 +31,6 @@ void delete_node_with_two_child_AVL(PassportAVL* tree, AVLNodePtr node);
 AVLNodePtr find_parent_AVL(AVLNodePtr root, AVLNodePtr node);
 AVLNodePtr find_inorder_successor_AVL(AVLNodePtr root, AVLNodePtr node);
 void copy_passport_data_AVL(AVLNodePtr destination, AVLNodePtr source);
-void balance_tree_check(PassportAVL* tree, AVLNodePtr node);
+void balance_tree_check(PassportAVL* tree, AVLNodePtr* node);
 
 #endif
