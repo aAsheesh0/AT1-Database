@@ -137,7 +137,8 @@
     <ClCompile Include="assignment.c" />
     <ClCompile Include="country_ARRAY.c" />
     <ClCompile Include="country_ARRAY.h" />
-    <ClCompile Include="information.c" />
+    <ClCompile Include="information_AVL.c" />
+    <ClCompile Include="information_BST.c" />
     <ClCompile Include="passport_AVL.c" />
     <ClCompile Include="passport_BST.c" />
     <ClCompile Include="country_LIST.c" />

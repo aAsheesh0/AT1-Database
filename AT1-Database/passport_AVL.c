@@ -111,31 +111,31 @@ AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode, Passpo
     int balance = get_balance(node);
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) < 0) {
-        /**printf("\nBefore right rotation:\n");
+        printf("\nBefore right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         return rotate_right(node, tree);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) > 0) {
-        /*printf("\nBefore left rotation:\n");
+        printf("\nBefore left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         return rotate_left(node, tree);
     }
 
     if (balance > 1 && strcmp(newNode->passport_number, node->left->passport_number) > 0) {
-        /**printf("\nBefore left-right rotation:\n");
+        printf("\nBefore left-right rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");/**/
+        printf("\n");
         node->left = rotate_left(node->left, tree);
         return rotate_right(node, tree);
     }
 
     if (balance < -1 && strcmp(newNode->passport_number, node->right->passport_number) < 0) {
-        /**printf("\nBefore right-left rotation:\n");
+        printf("\nBefore right-left rotation:\n");
         inorder_AVL_traversal(node);
-        printf("\n");*/
+        printf("\n");
         node->right = rotate_right(node->right, tree);
         return rotate_left(node, tree);
     }

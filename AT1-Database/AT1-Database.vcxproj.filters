@@ -44,7 +44,7 @@
     <ClCompile Include="testing.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="information.c">
+    <ClCompile Include="information_BST.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="read.c">
@@ -57,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="country_ARRAY.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="information_AVL.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
