@@ -34,4 +34,7 @@ AVLNodePtr find_inorder_successor_AVL(AVLNodePtr root, AVLNodePtr node);
 void copy_passport_data_AVL(AVLNodePtr destination, AVLNodePtr source);
 void balance_tree_check(PassportAVL* tree, AVLNodePtr* node);
 
+void count_nodes_AVL(AVLNodePtr root, int* total, int* left, int* right);
+void count_nodes_BST(PassportNodePtr root, int* total, int* left, int* right);
+
 #endif

@@ -15,6 +15,8 @@ void search_passport_by_number_pair2(PassportAVL* tree) {
     printf("\nEnter passport number to search for: ");
     scanf("%s", passportNumber);
 
+    clock_t start = clock();
+
     AVLNodePtr current_node = tree->root;
     while (current_node != NULL) {
         int comparison_result = strcmp(passportNumber, current_node->passport_number);
@@ -25,6 +27,10 @@ void search_passport_by_number_pair2(PassportAVL* tree) {
             printf("Last Name: %s\n", current_node->last_name);
             printf("Nationality: %s\n", current_node->nationality);
             printf("Date of Birth: %s\n", current_node->date_of_birth);
+
+            clock_t end = clock();
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+            printf("Time taken: %.1000lf seconds\n", time_taken);
 
             return;
         }
@@ -403,4 +409,23 @@ void balance_tree_check(PassportAVL* tree, AVLNodePtr* rootPtr) {
     }
 
     //printf("Current root node: %s\n", tree->root->passport_number);
+}
+
+void count_nodes_AVL(AVLNodePtr root, int* total, int* left, int* right) {
+    if (root == NULL) {
+        return;
+    }
+
+    (*total)++;
+
+    count_nodes_AVL(root->left, total, left, right);
+
+    count_nodes_AVL(root->right, total, left, right);
+
+    if (root->left != NULL) {
+        (*left)++;
+    }
+    if (root->right != NULL) {
+        (*right)++;
+    }
 }

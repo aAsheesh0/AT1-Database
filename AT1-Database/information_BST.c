@@ -10,6 +10,8 @@ void search_passport_by_number_pair1(PassportBST tree) {
     printf("\nEnter passport number to search for: ");
     scanf("%s", passportNumber);
 
+    clock_t start = clock();
+
     while (tree.root != NULL) {
         int comparisonResult = strcmp(passportNumber, tree.root->passport_number);
         if (comparisonResult == 0) {
@@ -19,6 +21,10 @@ void search_passport_by_number_pair1(PassportBST tree) {
             printf("Last Name: %s\n", tree.root->last_name);
             printf("Nationality: %s\n", tree.root->nationality);
             printf("Date of Birth: %s\n", tree.root->date_of_birth);
+
+            clock_t end = clock();
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+            printf("Time taken: %.1000lf seconds\n", time_taken);
 
             return;
         }
@@ -316,4 +322,23 @@ void copy_passport_data_BST(PassportNodePtr destination, PassportNodePtr source)
     strcpy(destination->visa_type, source->visa_type);
 
     destination->countries_visited = source->countries_visited;
+}
+
+void count_nodes_BST(PassportNodePtr root, int* total, int* left, int* right) {
+    if (root == NULL) {
+        return;
+    }
+
+    (*total)++;
+
+    count_nodes_BST(root->left, total, left, right);
+
+    count_nodes_BST(root->right, total, left, right);
+
+    if (root->left != NULL) {
+        (*left)++;
+    }
+    if (root->right != NULL) {
+        (*right)++;
+    }
 }

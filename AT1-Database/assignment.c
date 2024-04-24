@@ -28,6 +28,12 @@ void Database_BST() {
     read_travelers_data_pair1("travelers_data.csv", &tree);
     //inorder_passport_traversal(tree.root);
 
+    int total_BST = 0, left_BST = 0, right_BST = 0;
+    count_nodes_BST(tree.root, &total_BST, &left_BST, &right_BST);
+    printf("Total nodes: %d\n", total_BST);
+    printf("Nodes on the left: %d\n", left_BST);
+    printf("Nodes on the right: %d\n", right_BST);
+
     // Stop measuring time
     clock_t end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
@@ -89,6 +95,7 @@ void Database_AVL() {
     int choice = 0;
     double cpu_time_used;
     int Tree_height;
+    int num_nodes;
 
     // Performs AVL operations, rotations and array operations testing
     /*printf("\nTesting AVL rotations:\n");
@@ -106,6 +113,12 @@ void Database_AVL() {
     // Read data from travelers_data.csv, using AVL and Linked List
     read_travelers_data_pair2("travelers_data.csv", &tree);
     //inorder_AVL_traversal(tree.root);
+
+    int total_AVL = 0, left_AVL = 0, right_AVL = 0;
+    count_nodes_AVL(tree.root, &total_AVL, &left_AVL, &right_AVL);
+    printf("Total nodes: %d\n", total_AVL);
+    printf("Nodes on the left: %d\n", left_AVL);
+    printf("Nodes on the right: %d\n", right_AVL);
 
     // Stop measuring time
     clock_t end = clock();
