@@ -230,13 +230,13 @@ void delete_node_with_one_child_BST(PassportBST* tree, PassportNodePtr node) {
     }
     else {
         if (parent->left == node) {
-            printf("\nParent is: %s\n", parent->passport_number);
-            printf("Child is: %s\n\n", child->passport_number);
+            //printf("\nParent is: %s\n", parent->passport_number);
+            //printf("Child is: %s\n\n", child->passport_number);
             parent->left = child;
         }
         else {
-            printf("\nParent is: %s\n", parent->passport_number);
-            printf("\Child is: %s\n", child->passport_number);
+            //printf("\nParent is: %s\n", parent->passport_number);
+            //printf("\Child is: %s\n", child->passport_number);
             parent->right = child;
         }
     }
@@ -298,7 +298,7 @@ PassportNodePtr find_inorder_successor_BST(PassportNodePtr root, PassportNodePtr
             }
         }
     }
-    printf("Successor is: %s\n", successor->passport_number);
+    //printf("Successor is: %s\n", successor->passport_number);
     return successor;
 }
 

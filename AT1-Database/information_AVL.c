@@ -328,7 +328,7 @@ AVLNodePtr find_inorder_successor_AVL(AVLNodePtr root, AVLNodePtr node) {
             }
         }
     }
-    printf("Successor is: %s\n", successor->passport_number);
+    //printf("Successor is: %s\n", successor->passport_number);
     return successor;
 }
 
@@ -355,22 +355,22 @@ void balance_tree_check(PassportAVL* tree, AVLNodePtr* rootPtr) {
     AVLNodePtr root = *rootPtr;
 
     root->height = 1 + max(height(root->left), height(root->right));
-    printf("\nRotation Check!\n");
-    printf("Height is: %d\n", root->height);
+    //printf("\nRotation Check!\n");
+    //printf("Height is: %d\n", root->height);
    
     int balance = get_balance(root);
-    printf("Balance is: %d\n", balance);
+    //printf("Balance is: %d\n", balance);
 
     // If the node becomes unbalanced, perform rotations
     if (balance > 1) {
         if (get_balance(root->left) >= 0) {
             // Left Left Case
-            printf("Left Left Case\n");
+            //printf("Left Left Case\n");
             *rootPtr = rotate_right(root, tree);
         }
         else {
             // Left Right Case
-            printf("Left Right Case\n");
+            //printf("Left Right Case\n");
             root->left = rotate_left(root->left, tree);
             *rootPtr = rotate_right(root, tree);
         }
@@ -378,12 +378,12 @@ void balance_tree_check(PassportAVL* tree, AVLNodePtr* rootPtr) {
     else if (balance < -1) {
         if (get_balance(root->right) <= 0) {
             // Right Right Case
-            printf("Right Right Case\n");
+            //printf("Right Right Case\n");
             *rootPtr = rotate_left(root, tree);
         }
         else {
             // Right Left Case
-            printf("Right Left Case\n");
+            //printf("Right Left Case\n");
             root->right = rotate_right(root->right, tree);
             *rootPtr = rotate_left(root, tree);
         }
@@ -402,5 +402,5 @@ void balance_tree_check(PassportAVL* tree, AVLNodePtr* rootPtr) {
         tree->root = *rootPtr;
     }
 
-    printf("Current root node: %s\n", tree->root->passport_number);
+    //printf("Current root node: %s\n", tree->root->passport_number);
 }
