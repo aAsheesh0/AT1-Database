@@ -5,7 +5,7 @@
 #include "country_ARRAY.h"
 #include "country_LIST.h"
 
-// Function declaration
+// Function declaration for reading the file for each pair
 void read_travelers_data_pair1(const char* filename, PassportBST* tree);
 void read_travelers_data_pair2(const char* filename, PassportAVL* tree);
 

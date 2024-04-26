@@ -4,6 +4,8 @@
 #include "country_LIST.h"
 #include "country_ARRAY.h"
 
+/* Some Hard-coded Testing operations used */
+
 void test_bst_operations() {
     PassportBST tree = { NULL };
 
@@ -116,12 +118,14 @@ void test_array_operations() {
     struct CountryArray country_array;
     init_country_array(&country_array);
 
+    // Insert into the array
     insert_country_array(&country_array, "France", 2);
     insert_country_array(&country_array, "Germany", 5);
     insert_country_array(&country_array, "Canada", 3);
     insert_country_array(&country_array, "USA", 1);
     insert_country_array(&country_array, "Australia", 2);
 
+    // Testing the results.
     printf("Countries with number of visits (Array):\n");
     for (int i = 0; i < country_array.count; i++) {
         printf("%s - Visits: %d\n", country_array.countries[i], country_array.numVisits[i]);

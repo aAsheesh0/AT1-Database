@@ -4,6 +4,12 @@
 #include "passport_BST.h"
 #include "passport_AVL.h"
 
+/*
+*  This file contains all the function prototypes implemeted in information_BST.c and inforamtion_AVL.c to retrieve and print the data
+*  And also functions prototypes to add nodes in BST and linked list (Pair1) or AVL and arrays (Pair2)
+*  The delete main function uses some helper functions for better organisation
+*/
+
 void search_passport_by_number_pair1(PassportBST tree);
 void search_passport_by_number_pair2(PassportAVL* tree);
 

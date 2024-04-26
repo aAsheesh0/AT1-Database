@@ -5,12 +5,19 @@
 #include <stdlib.h>
 #include <time.h>
 
+// Functions implementation for the PAIR-1: BST and Linked List
+// 1. Retrieving a passport details by its number
+// 2. Retrieving history of a passport holder i.e. countries visited and number of times and also purpose of visit
+// 3. Finding all the passports in the dataset containing that nationality
+// 4. Adding a passport into the structure with all the fields
+// 5. Deleting a passport and its history from the structure
+
 void search_passport_by_number_pair1(PassportBST tree) {
     char passportNumber[20];
     printf("\nEnter passport number to search for: ");
     scanf("%s", passportNumber);
 
-    clock_t start = clock();
+    //clock_t start = clock();
 
     while (tree.root != NULL) {
         int comparisonResult = strcmp(passportNumber, tree.root->passport_number);
@@ -22,9 +29,9 @@ void search_passport_by_number_pair1(PassportBST tree) {
             printf("Nationality: %s\n", tree.root->nationality);
             printf("Date of Birth: %s\n", tree.root->date_of_birth);
 
-            clock_t end = clock();
-            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time taken: %.1000lf seconds\n", time_taken);
+            //clock_t end = clock();
+            //double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+            //printf("Time taken: %.1000lf seconds\n", time_taken);
 
             return;
         }
@@ -130,11 +137,11 @@ void add_passport_record_pair1(PassportBST* tree) {
         }
     }
 
-    start = clock();
+    //start = clock();
     insert_passport_node(tree, new_passport);
-    end = clock();
-    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("Time taken to add passport record: %f seconds.\n", cpu_time_used);
+    //end = clock();
+    //cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    //printf("Time taken to add passport record: %f seconds.\n", cpu_time_used);
 }
 
 void display_passport_history_pair1(PassportBST tree) {
@@ -196,17 +203,17 @@ void delete_passport_record_pair1(PassportBST* tree) {
     // Case1: Leaf node to be deleted
     if (node_to_delete->left == NULL && node_to_delete->right == NULL) {
         delete_leaf_node_BST(tree, node_to_delete);
-        printf("Record with Passport number %s deleted successfully 1!\n", passport_number);
+        printf("Record with Passport number %s deleted successfully!\n", passport_number);
     }
     // Case2: Node with one child to be deleted
     else if (node_to_delete->left == NULL || node_to_delete->right == NULL) {
         delete_node_with_one_child_BST(tree, node_to_delete);
-        printf("Record with Passport number %s deleted successfully 2!\n", passport_number);
+        printf("Record with Passport number %s deleted successfully!\n", passport_number);
     }
     // Case3: Node with two child to be deleted
     else {
         delete_node_with_two_child_BST(tree, node_to_delete);
-        printf("Record with Passport number %s deleted successfully 3!\n", passport_number);
+        printf("Record with Passport number %s deleted successfully!\n", passport_number);
     }
 }
 

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "country_LIST.h"
 
+// Initialize the country node for linked list
 struct CountryNode* init_country_node(char country[], int num_visits) {
     struct CountryNode* newNode = (struct CountryNode*)malloc(sizeof(struct CountryNode));
     if (newNode == NULL) {
@@ -37,6 +38,7 @@ void insert_country_node(struct CountryNode** head, char country[], int num_visi
     }
 }
 
+// To Free the linked list containing countries, called when freeing the dynamically allocatied memory for the tree
 void free_country_list(struct CountryNode* head) {
     struct CountryNode* temp;
     while (head != NULL) {

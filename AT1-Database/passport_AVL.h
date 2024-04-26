@@ -1,8 +1,8 @@
-// Defining the structure for the entire BST
+// Defining the structure for the entire AVL
 #ifndef PASSPORT_AVL_H
 #define PASSPORT_AVL_H
 #include "country_ARRAY.h"
-//#include "country_LIST.h"
+//#include "country_LIST.h" // Uncomment if you want to link AVL to Linked list for AVL vs BST comparison check. And make appropriate changes.
 
 struct AVLNode {
     char passport_number[20];
@@ -12,7 +12,7 @@ struct AVLNode {
     char date_of_birth[20];
     char purpose_of_visit[100];
     char visa_type[50];
-    //struct CountryNode* countries_visited; // Pointer to the head of the linked list of countries
+    //struct CountryNode* countries_visited; // Pointer to the head of the linked list of countries - If uncommented, will require some changes
     struct CountryArray countries_visited; // Array of countries visited
     struct AVLNode* left;
     struct AVLNode* right;

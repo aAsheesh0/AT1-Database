@@ -4,6 +4,7 @@
 #include <string.h>
 #include "passport_BST.h"
 
+// Initialise the node for BST and point it to the linekd list
 PassportNodePtr init_passport(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
     PassportNodePtr new_node = (PassportNodePtr)malloc(sizeof(struct PassportNode));
     if (new_node == NULL) {
@@ -23,6 +24,7 @@ PassportNodePtr init_passport(char passport_number[], char first_name[], char la
     return new_node;
 }
 
+// Insert the node alphabetically
 void insert_passport_node(PassportBST* tree, PassportNodePtr new_node) {
     if (tree == NULL) {
         printf("BST is not Initialised.\n");
@@ -55,6 +57,7 @@ void insert_passport_node(PassportBST* tree, PassportNodePtr new_node) {
     }
 }
 
+// Search the node in the tree
 PassportNodePtr search_passport_node(PassportNodePtr root, char passport_number[]) {
     if (root == NULL || strcmp(root->passport_number, passport_number) == 0) {
         return root;
@@ -67,6 +70,7 @@ PassportNodePtr search_passport_node(PassportNodePtr root, char passport_number[
     }
 }
 
+// Part of testing- Traverse the tree and print the number and the countries visited.
 void inorder_passport_traversal(PassportNodePtr root) {
     if (root != NULL) {
         inorder_passport_traversal(root->left);
@@ -81,6 +85,7 @@ void inorder_passport_traversal(PassportNodePtr root) {
     }
 }
 
+//Free memory for tree
 void free_passport_tree(PassportNodePtr root) {
     if (root != NULL) {
         free_passport_tree(root->left);
@@ -90,6 +95,7 @@ void free_passport_tree(PassportNodePtr root) {
     }
 }
 
+// Calculate the height of the tree
 int tree_height_BST(PassportNodePtr root) {
     if (root == NULL)
         return 0;

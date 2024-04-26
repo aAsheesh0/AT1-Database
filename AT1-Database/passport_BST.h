@@ -2,7 +2,7 @@
 #define PASSPORT_H
 #include "country_LIST.h"
 
-// Define the structure for Passport Node
+// Define the structure for BST Passport Node
 struct PassportNode {
     char passport_number[20];
     char first_name[50];
@@ -16,7 +16,7 @@ struct PassportNode {
     struct PassportNode* right;
 };
 
-// Defining a typedef for the Passport Node Pointer
+// Defining a typedef for the BST Passport Node Pointer
 typedef struct PassportNode* PassportNodePtr;
 
 // Defining the structure for the entire BST

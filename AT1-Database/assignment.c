@@ -14,7 +14,7 @@ void Database_BST() {
     double cpu_time_used;
     int Tree_height;
 
-    // Performs BST  and Linked List operations testing
+    // Performs BST and Linked List operations testing
     /*printf("Testing Binary Search Tree (BST) operations:\n");
     test_bst_operations();
 
@@ -26,21 +26,23 @@ void Database_BST() {
 
     // Read data from travelers_data.csv, using BST and Linked List
     read_travelers_data_pair1("travelers_data.csv", &tree);
-    //inorder_passport_traversal(tree.root);
+    //inorder_passport_traversal(tree.root); // Only do this when reading less rows. Otherwise it will take long to traverse and print all the nodes
 
-    int total_BST = 0, left_BST = 0, right_BST = 0;
+    // Check how many nodes are on left and right side
+    /*int total_BST = 0, left_BST = 0, right_BST = 0;
     count_nodes_BST(tree.root, &total_BST, &left_BST, &right_BST);
     printf("Total nodes: %d\n", total_BST);
     printf("Nodes on the left: %d\n", left_BST);
-    printf("Nodes on the right: %d\n", right_BST);
+    printf("Nodes on the right: %d\n", right_BST);*/
 
     // Stop measuring time
     clock_t end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
-
-    Tree_height = tree_height_BST(tree.root);
-    printf("Height of the tree is: %d\n", Tree_height);
+    
+    //To see BSTs height
+    //Tree_height = tree_height_BST(tree.root);
+    //printf("Height of the tree is: %d\n", Tree_height);
 
     while (choice != 6) {
         printf("\nPassport Database Operations (BST)\n");
@@ -113,21 +115,23 @@ void Database_AVL() {
     // Read data from travelers_data.csv, using AVL and Linked List
     read_travelers_data_pair2("travelers_data.csv", &tree);
     //inorder_AVL_traversal(tree.root);
-
-    int total_AVL = 0, left_AVL = 0, right_AVL = 0;
+        
+    // Check how many nodes are on left and right side
+    /*int total_AVL = 0, left_AVL = 0, right_AVL = 0;
     count_nodes_AVL(tree.root, &total_AVL, &left_AVL, &right_AVL);
     printf("Total nodes: %d\n", total_AVL);
     printf("Nodes on the left: %d\n", left_AVL);
-    printf("Nodes on the right: %d\n", right_AVL);
+    printf("Nodes on the right: %d\n", right_AVL);*/
 
     // Stop measuring time
     clock_t end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Time taken to read and structure data: %f seconds\n", cpu_time_used);
     
-    Tree_height = tree_height_AVL(tree.root);
+    // To check the height of AVL and number of rotations
+    /*Tree_height = tree_height_AVL(tree.root);
     printf("Height of the tree is: %d\n", Tree_height);
-    printf("Number of rotations during structuring: %d\n", tree.rotation_count);
+    printf("Number of rotations during structuring: %d\n", tree.rotation_count);*/
 
     while (choice != 6) {
         printf("\nPassport Database Operations (AVL)\n");
@@ -180,6 +184,7 @@ void Database_AVL() {
 int main() {
     int choice;
 
+    // Menu to choose the Data structure
     while (1) {
         printf("--- Select Database Type ---\n");
         printf("1. BST and Linked List Database\n");

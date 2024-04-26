@@ -98,7 +98,7 @@ void read_travelers_data_pair1(const char* filename, PassportBST* tree) {
 }
 
 void read_travelers_data_pair2(const char* filename, PassportAVL* tree) {
-    printf("AVL & Array!\n");
+    printf("\nAVL & Array!\n");
     //printf("\nAVL & Linked List!\n");
     
     FILE* file;
@@ -176,12 +176,12 @@ void read_travelers_data_pair2(const char* filename, PassportAVL* tree) {
             insert_AVL_node(tree, new_passport);
             // Insert the visited country into the array
             insert_country_array(&(new_passport->countries_visited), country, num_visits);
-            //insert_country_node(&(new_passport->countries_visited), country, num_visits);
+            //insert_country_node(&(new_passport->countries_visited), country, num_visits); // If AVL linked to Linked list
         }
         else {
             // Passport already exists, just insert the visited country into the existing passport's array
             insert_country_array(&(existing_passport->countries_visited), country, num_visits);
-            //insert_country_node(&(existing_passport->countries_visited), country, num_visits);
+            //insert_country_node(&(existing_passport->countries_visited), country, num_visits); // If AVL linked to Linked list
         }
 
         rows_read++;

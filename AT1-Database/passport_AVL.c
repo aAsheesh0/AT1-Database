@@ -5,6 +5,7 @@
 #include "passport_AVL.h"
 #include "country_ARRAY.h"
 
+// Initializing the AVL tree node
 AVLNodePtr init_AVL_node(char passport_number[], char first_name[], char last_name[], char nationality[], char date_of_birth[], char purpose_of_visit[], char visa_type[]) {
     AVLNodePtr newNode = (AVLNodePtr)malloc(sizeof(struct AVLNode));
     if (newNode == NULL) {
@@ -19,26 +20,28 @@ AVLNodePtr init_AVL_node(char passport_number[], char first_name[], char last_na
     strcpy(newNode->purpose_of_visit, purpose_of_visit);
     strcpy(newNode->visa_type, visa_type);
     init_country_array(&(newNode->countries_visited)); // initialising array of countries
-    //newNode->countries_visited = NULL;
+    //newNode->countries_visited = NULL;     // To link AVL to Linked list of countries instead of array
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->height = 1;
-    //newNode->rotation_count = 0;
     return newNode;
 }
 
+// height of the tree node
 int height(AVLNodePtr node) {
     if (node == NULL)
         return 0;
     return node->height;
 }
 
+// Balance of left and right side, used for rotations
 int get_balance(AVLNodePtr node) {
     if (node == NULL)
         return 0;
     return height(node->left) - height(node->right);
 }
 
+// Height of the tree
 int tree_height_AVL(AVLNodePtr node) {
     if (node == NULL)
         return 0;
@@ -90,6 +93,7 @@ void insert_AVL_node(PassportAVL* tree, AVLNodePtr new_node) {
     }
 }
 
+// Performs recursion to insert the node and do the rotations accordingly
 AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode, PassportAVL* tree) {
     if (node == NULL) {
         return newNode;
@@ -144,6 +148,7 @@ AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode, Passpo
     return node;
 }
 
+// Search the node in the AVL tree
 AVLNodePtr search_AVL_node(AVLNodePtr node, char passport_number[]) {
     if (node == NULL || strcmp(node->passport_number, passport_number) == 0) {
         return node;
@@ -156,6 +161,7 @@ AVLNodePtr search_AVL_node(AVLNodePtr node, char passport_number[]) {
     return search_AVL_node(node->left, passport_number);
 }
 
+// Traverse the tree and print passport number and history i.e. countries visiteds (Part of testing)
 void inorder_AVL_traversal(AVLNodePtr node) {
     if (node != NULL) {
         inorder_AVL_traversal(node->left);
@@ -168,6 +174,7 @@ void inorder_AVL_traversal(AVLNodePtr node) {
     }
 }
 
+// Free the memory allocated to the tree
 void free_AVL_tree(AVLNodePtr node) {
     if (node != NULL) {
         free_AVL_tree(node->left);

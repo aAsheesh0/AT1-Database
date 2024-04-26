@@ -4,6 +4,7 @@
 #include <string.h>
 #include "country_ARRAY.h"
 
+// Initialise country array
 void init_country_array(struct CountryArray* country_array) {
     country_array->count = 0;
     for (int i = 0; i < MAX_COUNTRIES; i++) {
