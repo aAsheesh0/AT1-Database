@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include "passport_BST.h"
-#include "passport_AVL.h"
-#include "country_LIST.h"
-#include "country_ARRAY.h"
+#include "testing.h"
 
 /* Some Hard-coded Testing operations used */
 

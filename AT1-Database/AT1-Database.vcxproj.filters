@@ -24,10 +24,16 @@
     <ClInclude Include="read.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="information.h">
+    <ClInclude Include="information_AVL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="passport_AVL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="information_BST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

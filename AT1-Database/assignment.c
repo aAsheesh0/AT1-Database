@@ -4,7 +4,8 @@
 #include <string.h>
 #include <time.h>
 #include "read.h"
-#include "information.h"
+#include "information_AVL.h"
+#include "information_BST.h"
 
 void Database_BST() {
     PassportNodePtr root = NULL;

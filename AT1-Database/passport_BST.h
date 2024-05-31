@@ -30,7 +30,6 @@ void insert_passport_node(PassportBST* tree, PassportNodePtr newNode);
 PassportNodePtr search_passport_node(PassportNodePtr root, char passport_number[]);
 void inorder_passport_traversal(PassportNodePtr root);
 void free_passport_tree(PassportNodePtr root);
-void test_bst_operations();
 int tree_height_BST(PassportNodePtr root);
 
 #endif

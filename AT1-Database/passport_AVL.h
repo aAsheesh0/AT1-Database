@@ -40,7 +40,5 @@ AVLNodePtr insert_AVL_node_recursive(AVLNodePtr node, AVLNodePtr newNode, Passpo
 AVLNodePtr search_AVL_node(AVLNodePtr node, char passport_number[]);
 void inorder_AVL_traversal(AVLNodePtr node);
 void free_AVL_tree(AVLNodePtr node);
-void test_AVL_operations();
-void test_AVL_rotations();
 
 #endif

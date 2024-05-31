@@ -12,6 +12,5 @@ struct CountryArray {
 // Function declarations
 void init_country_array(struct CountryArray* country_array);
 void insert_country_array(struct CountryArray* country_array, char country[], int num_visits);
-void test_array_operations();
 
 #endif
